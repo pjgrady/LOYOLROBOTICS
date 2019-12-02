@@ -7,6 +7,8 @@
 /*                                                                            */
 /*----------------------------------------------------------------------------*/
 
+/* goal: keep robot 9" from central 'track' */
+
 // ---- START VEXCODE CONFIGURED DEVICES ----
 // Robot Configuration:
 // [Name]               [Type]        [Port(s)]
@@ -18,6 +20,7 @@
 #include "vex.h"
 
 using namespace vex;
+#include "util.h"
 
 static const int SPEED = 15;
 
@@ -25,42 +28,9 @@ static const int SPEED = 15;
 static const double MIN_DISTANCE = 9.0;
 static const double MAX_DISTANCE = 15.0;
 static const double IDEAL = (MAX_DISTANCE + MIN_DISTANCE) / 2.0;
-static const int MIN_TURN_TIME = 10;
 
 
 // claw is on the back :)
-
-static void cls_write(vex::color color, const char *msg, int value)
-{
-  Brain.Screen.setPenColor(vex::color::white);
-  Brain.Screen.setFillColor(color);
-  Brain.Screen.drawRectangle(0,0, 480, 240);
-  Brain.Screen.setCursor(2,4);
-  Brain.Screen.setFont(vex::fontType::mono40);
-  Brain.Screen.print(msg);
-  Brain.Screen.print(value);
-}
-
-
-static void write(int r, int c, const char *msg)
-{
-  Brain.Screen.setCursor(r,c);
-  Brain.Screen.print(msg);
-}
-
-static void write(int r, int c, double v)
-{
-  Brain.Screen.setCursor(r,c);
-  Brain.Screen.print(v);
-}
-
-
-static void write(int r, int c, const char *msg, double v)
-{
-  Brain.Screen.setCursor(r,c);
-  Brain.Screen.print(msg);
-  Brain.Screen.print(v);
-}
 
 bool to_close_panic(double dist)
 {
@@ -72,63 +42,56 @@ bool to_far_panic(double dist)
   return dist > MAX_DISTANCE;
 }
 
-
 void turn_right(double dist)
 {
-  write(3, 6, "turn right");
+  bwrite(3, 6, "turn right");
   FrontLeft.spin(directionType::fwd, SPEED, velocityUnits::pct);
   FrontRight.spin(directionType::rev, SPEED, velocityUnits::pct);
 }
 
 void turn_left(double dist)
 {
-  write(3, 6, "turn left");
+  bwrite(3, 6, "turn left");
   FrontLeft.spin(directionType::rev, SPEED, velocityUnits::pct);
   FrontRight.spin(directionType::fwd, SPEED, velocityUnits::pct);
 }
 
-void go_forward(double dist)  // biased towrard IDEAL
+void go_forward(double dist)  // bias toward IDEAL
 {
-  write(3,6, "go forward");
+  bwrite(3,6, "go forward");
   double range  = (MAX_DISTANCE - MIN_DISTANCE) / 2.0;
   double r = (MAX_DISTANCE - dist) / range;
   double l = 2 - r;
   FrontLeft.spin(directionType::fwd, l*SPEED, velocityUnits::pct);
   FrontRight.spin(directionType::fwd, r*SPEED, velocityUnits::pct);
-  write(5, 6, "l = ", l);
-  write(6, 6, "r = ", r);
-  write(4, 6, "dist = ", dist);
+  bwrite(4, 6, "dist = ", dist);
+  bwrite(5, 6, "l = ", l);
+  bwrite(6, 6, "r = ", r);
 }
 
 double sonar_ping()
 {
   double d = Sonar.distance(inches);
-  write(4, 6, "dist = ", d);
+  bwrite(4, 6, "dist = ", d);
   return d;
 }
 
 
-int main() {
+int main() 
+{
   // Initializing Robot Configuration. DO NOT REMOVE!
   vexcodeInit();
   cls_write(vex::color::blue, "", 0);
 
-  while (true) {
+  while (true) 
+  {
     double dist = sonar_ping();
     if (to_close_panic(dist))
-    {
       turn_left(dist);
-      //task::sleep(MIN_TURN_TIME); // min turning time
-    }
     else if (to_far_panic(dist))
-    {
       turn_right(dist);
-      // task::sleep(MIN_TURN_TIME); // min turning time
-    }
     else
-    {
       go_forward(dist);
-    }
 
     task::sleep(100);  // poll 10 times a second
    }

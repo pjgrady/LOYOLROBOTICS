@@ -7,6 +7,11 @@
 /*                                                                            */
 /*----------------------------------------------------------------------------*/
 
+
+/* turn robot until sufficieintly large orange block is found. 
+ * reverse direction of turn if a purple block is seen.
+ */
+
 // ---- START VEXCODE CONFIGURED DEVICES ----
 // Robot Configuration:
 // [Name]               [Type]        [Port(s)]
@@ -18,30 +23,13 @@
 #include "vex.h"
 
 using namespace vex;
+#include "util.h"
+
 
 static bool clockwise = true;
 static bool change_possible = true;
 
 static const int SPEED = 5;
-
-
-static void cls_write(vex::color color, const char *msg, int value)
-{
-  Brain.Screen.setPenColor(vex::color::white);
-  Brain.Screen.setFillColor(color);
-  Brain.Screen.drawRectangle(0,0, 480, 240);
-  Brain.Screen.setCursor(2,4);
-  Brain.Screen.setFont(vex::fontType::mono40);
-  Brain.Screen.print(msg);
-  Brain.Screen.print(value);
-}
-
-
-static void write(int r, int c, const char *msg)
-{
-  Brain.Screen.setCursor(r,c);
-  Brain.Screen.print(msg);
-}
 
 
 bool foundOrange()
@@ -51,16 +39,17 @@ bool foundOrange()
   {
     cls_write(orange, "Orange Exists ", HV.largestObject.width);
     if (HV.largestObject.width>25 && HV.largestObject.width<100) {
-      write(3,6,"size match... FOUND");
-      // usign two orange block test find big enough
+      bwrite(3,6,"size match... FOUND");
+      // FIX ME: using three orange blocks, test not to big / not to small
     }
+
     FrontLeft.stop();
     FrontRight.stop();
     return true;
   }
   else
   {
-    write(3,6, clockwise ? "clockwise" : "counter closkwise");
+    bwrite(3,6, clockwise ? "turning clockwise" : "turngn counter-clockwise");
     if (clockwise)
     {
       FrontLeft.spin(directionType::fwd, SPEED, velocityUnits::pct);
@@ -76,12 +65,17 @@ bool foundOrange()
 
 bool foundPurple()
 {
-  HV.takeSnapshot((HV__HPURPLE));
+  HV.takeSnapshot(HV__HPURPLE);
   cls_write(orange, HV.largestObject.exists ? "Purple exists " : "No Purple ", 
             HV.largestObject.width);
-  if (HV.largestObject.exists && HV.largestObject.width>50) // && HV.largestObject.width<100) 
+
+  // change_posible is used to avoid robot occilating between clocwise and 
+  // counter-clockwise by waiting for the purple block to 'disapear'.
+  // an alternative would be to forbid change for X seconds.
+
+  if (HV.largestObject.exists && HV.largestObject.width>50) 
   {
-    write(3, 6, "size match");
+    bwrite(3, 6, "size match");
     if (change_possible)
       clockwise = !clockwise;
     change_possible = false;
@@ -89,7 +83,7 @@ bool foundPurple()
   }
   else
   {
-    if (!HV.largestObject.exists)  // FIX ME timer (no change for 1 sec?) might tbe better 
+    if (!HV.largestObject.exists)  
       change_possible = true;
     return false;
   }
@@ -99,19 +93,16 @@ bool foundPurple()
 int main() {
   // Initializing Robot Configuration. DO NOT REMOVE!
   vexcodeInit();
-   while (true) {
+
+   while (true) 
+   {
      if (foundOrange())
-     {
-       write(4,6, "main:orange");
-     }
+       bwrite(4,6, "main: found orange");
      else if (foundPurple())
-     {
-       write(4,6, "main:purple");
-     }
+       bwrite(4,6, "main: found purple");
      else
-     {
-       write(4,6, "main: no match");
-     }
+       bwrite(4,6, "main: found no match");
+     
      task::sleep(100);  // poll 10 times a second
    }
 }
