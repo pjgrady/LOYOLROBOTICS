@@ -7,7 +7,10 @@
 /*                                                                            */
 /*----------------------------------------------------------------------------*/
 
-/* goal: keep robot 9" from central 'track' */
+/* goal: keep robot 9" from central 'track' (a vertical wall on the 
+ * robot's left) 
+ * This code assumes the claw is on the back of the bot :)
+ */
 
 // ---- START VEXCODE CONFIGURED DEVICES ----
 // Robot Configuration:
@@ -30,9 +33,8 @@ static const double MAX_DISTANCE = 15.0;
 static const double IDEAL = (MAX_DISTANCE + MIN_DISTANCE) / 2.0;
 
 
-// claw is on the back :)
 
-bool to_close_panic(double dist)
+bool to_close_panic(double dist)  // old idea likely deletable
 {
   return dist < MIN_DISTANCE;
 }
@@ -79,8 +81,8 @@ double sonar_ping()
 
 int main() 
 {
-  // Initializing Robot Configuration. DO NOT REMOVE!
-  vexcodeInit();
+  vexcodeInit();     // Initializing Robot Configuration.
+
   cls_write(vex::color::blue, "", 0);
 
   while (true) 

@@ -8,8 +8,8 @@
 /*----------------------------------------------------------------------------*/
 
 
-/* turn robot until sufficieintly large orange block is found. 
- * reverse direction of turn if a purple block is seen.
+/* turn claw-bot until sufficiently large orange block is found. 
+ * reverse direction of spin if a purple block is seen.
  */
 
 // ---- START VEXCODE CONFIGURED DEVICES ----
@@ -49,7 +49,7 @@ bool foundOrange()
   }
   else
   {
-    bwrite(3,6, clockwise ? "turning clockwise" : "turngn counter-clockwise");
+    bwrite(3,6, clockwise ? "turning clockwise" : "turning counter-clockwise");
     if (clockwise)
     {
       FrontLeft.spin(directionType::fwd, SPEED, velocityUnits::pct);
@@ -69,8 +69,9 @@ bool foundPurple()
   cls_write(orange, HV.largestObject.exists ? "Purple exists " : "No Purple ", 
             HV.largestObject.width);
 
-  // change_posible is used to avoid robot occilating between clocwise and 
-  // counter-clockwise by waiting for the purple block to 'disapear'.
+  // change_possible is used to avoid robot oscillating between clockwise and 
+  // counter-clockwise while a purple block is visible.  it does this by
+  // preventing further change until the purple block is no longer visible. 
   // an alternative would be to forbid change for X seconds.
 
   if (HV.largestObject.exists && HV.largestObject.width>50) 
@@ -91,8 +92,7 @@ bool foundPurple()
 
 
 int main() {
-  // Initializing Robot Configuration. DO NOT REMOVE!
-  vexcodeInit();
+  vexcodeInit();     // Initializing Robot Configuration. 
 
    while (true) 
    {
