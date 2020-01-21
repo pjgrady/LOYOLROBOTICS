@@ -602,23 +602,23 @@ void usercontrol(void) {
         vexcodeInit();
         vex::task::sleep(50);
         Controller1.Screen.print("");
-        //Spins Right
-        if(Controller1.Axis1.position(-100))
+        //Spins on axis1
+        if(Controller1.Axis1.value())
         {
             brake = 0;
-            Motor1.spin(vex::directionType::rev);
-            Motor10.spin(vex::directionType::rev);
-            Motor11.spin(vex::directionType::rev);
-            Motor20.spin(vex::directionType::rev);
+            Motor1.spin(vex::directionType::rev,Controller1.Axis1.value(), vex::velocityUnits::pct);
+            Motor10.spin(vex::directionType::rev,Controller1.Axis1.value(), vex::velocityUnits::pct);
+            Motor11.spin(vex::directionType::rev,Controller1.Axis1.value(), vex::velocityUnits::pct);
+            Motor20.spin(vex::directionType::rev,Controller1.Axis1.value(), vex::velocityUnits::pct);
         }
-        //Spins Left
+        //Spins on axis 2
 	      if (Controller1.Axis2.value())
         {
             brake = 0;
-            Motor1.spin(directionType::fwd);
-            Motor10.spin(directionType::fwd);
-            Motor11.spin(directionType::fwd);
-            Motor20.spin(directionType::fwd);
+            Motor1.spin(directionType::fwd,Controller1.Axis2.value(), vex::velocityUnits::pct);
+            Motor10.spin(directionType::fwd,Controller1.Axis2.value(), vex::velocityUnits::pct);
+            Motor11.spin(directionType::fwd,Controller1.Axis2.value(), vex::velocityUnits::pct);
+            Motor20.spin(directionType::fwd,Controller1.Axis2.value(), vex::velocityUnits::pct);
         }
         // Forward/Backwards
         if(Controller1.Axis3.value())
