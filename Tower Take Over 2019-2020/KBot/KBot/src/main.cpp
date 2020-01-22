@@ -14,6 +14,24 @@
 // Motor3               motor         3               
 // Motor2               motor         2               
 // Motor19              motor         19              
+// Motor20              motor         20              
+// ---- END VEXCODE CONFIGURED DEVICES ----
+// ---- START VEXCODE CONFIGURED DEVICES ----
+// Robot Configuration:
+// [Name]               [Type]        [Port(s)]
+// Controller1          controller                    
+// Motor3               motor         3               
+// Motor2               motor         2               
+// Motor19              motor         19              
+// Motor20              motor         20              
+// ---- END VEXCODE CONFIGURED DEVICES ----
+// ---- START VEXCODE CONFIGURED DEVICES ----
+// Robot Configuration:
+// [Name]               [Type]        [Port(s)]
+// Controller1          controller                    
+// Motor3               motor         3               
+// Motor2               motor         2               
+// Motor19              motor         19              
 // BackRightMotor       motor         20              
 // ---- END VEXCODE CONFIGURED DEVICES ----
 // ---- START VEXCODE CONFIGURED DEVICES ----
@@ -600,7 +618,7 @@ void usercontrol( void ) {
         // Initializing Robot Configuration. DO NOT REMOVE!
         vexcodeInit();
         vex::task::sleep(50);
-        Controller1.Screen.print("I Eat Ass");
+        Controller1.Screen.print("D.C.");
       
         // Forward Left
         if(Controller1.Axis3.value() > 0)  {
@@ -642,8 +660,11 @@ void usercontrol( void ) {
             Motor19.stop(brakeType::brake);
             Motor20.stop(brakeType::brake);
         }
+
+//2L 3R
+//19L 20R
       
-    //wait(20,msec); // Sleep the task for a short amount of time to 
+    wait(20,msec); // Sleep the task for a short amount of time to 
                    // prevent wasted resources
       
     }    
