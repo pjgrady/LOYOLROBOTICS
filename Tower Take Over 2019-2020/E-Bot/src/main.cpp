@@ -76,29 +76,6 @@ int auton = 0;
 
 int promise = 6;
 
-//Auton Constants
-const float WHEEL_DIAMETER = 4.125; // inches
-const float WHEEL_CIRCUMFERENCE = WHEEL_DIAMETER * 3.1416;
-const float GEAR_RATIO = 0.5; // 0.5 turn of motor = 1 turn of wheel
-const int  AUTON_DRIVE_PCT = 50; // motors at 50% power during auton
-
-//Auton Functions
-void driveForward( float inches)
-{
-  float inchesPerDegree = WHEEL_CIRCUMFERENCE / 360;
-  float degrees = inches / inchesPerDegree;
-
-  Motor10.startRotateFor(
-    degrees * GEAR_RATIO, vex::rotationUnits::deg,
-    AUTON_DRIVE_PCT, vex::velocityUnits::pct
-  );
-
-  Motor11.startRotateFor(
-    degrees * GEAR_RATIO, vex::rotationUnits::deg,
-    AUTON_DRIVE_PCT, vex::velocityUnits::pct
-  );
-
-}
 
 void auton0( void ) {
     Brain.Screen.setFillColor(vex::color::white);
@@ -700,6 +677,9 @@ void usercontrol(void) {
 }
 
 int main() {
+
+  //Initialize Robot Config.
+  vexcodeInit();
 
   while (true) 
   {
