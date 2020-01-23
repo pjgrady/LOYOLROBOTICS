@@ -1,57 +1,3 @@
-// ---- START VEXCODE CONFIGURED DEVICES ----
-// Robot Configuration:
-// [Name]               [Type]        [Port(s)]
-// Controller1          controller                    
-// Motor3               motor         3               
-// Motor2               motor         2               
-// Motor19              motor         19              
-// Motor20              motor         20              
-// ---- END VEXCODE CONFIGURED DEVICES ----
-// ---- START VEXCODE CONFIGURED DEVICES ----
-// Robot Configuration:
-// [Name]               [Type]        [Port(s)]
-// Controller1          controller                    
-// Motor3               motor         3               
-// Motor2               motor         2               
-// Motor19              motor         19              
-// Motor20              motor         20              
-// ---- END VEXCODE CONFIGURED DEVICES ----
-// ---- START VEXCODE CONFIGURED DEVICES ----
-// Robot Configuration:
-// [Name]               [Type]        [Port(s)]
-// Controller1          controller                    
-// Motor3               motor         3               
-// Motor2               motor         2               
-// Motor19              motor         19              
-// Motor20              motor         20              
-// ---- END VEXCODE CONFIGURED DEVICES ----
-// ---- START VEXCODE CONFIGURED DEVICES ----
-// Robot Configuration:
-// [Name]               [Type]        [Port(s)]
-// Controller1          controller                    
-// Motor3               motor         3               
-// Motor2               motor         2               
-// Motor19              motor         19              
-// BackRightMotor       motor         20              
-// ---- END VEXCODE CONFIGURED DEVICES ----
-// ---- START VEXCODE CONFIGURED DEVICES ----
-// Robot Configuration:
-// [Name]               [Type]        [Port(s)]
-// Controller1          controller                    
-// Motor3               motor         3               
-// Motor2               motor         2               
-// BackLeftMotor        motor         19              
-// BackRightMotor       motor         20              
-// ---- END VEXCODE CONFIGURED DEVICES ----
-// ---- START VEXCODE CONFIGURED DEVICES ----
-// Robot Configuration:
-// [Name]               [Type]        [Port(s)]
-// Controller1          controller                    
-// Motor3               motor         3               
-// FrontLeftMotor       motor         2               
-// BackLeftMotor        motor         19              
-// BackRightMotor       motor         20              
-// ---- END VEXCODE CONFIGURED DEVICES ----
 /*----------------------------------------------------------------------------*/
 /*                                                                            */
 /*    Module:       main.cpp                                                  */
@@ -105,19 +51,28 @@ void auton0( void ) {
     Brain.Screen.clearScreen(vex::color::white);
     Brain.Screen.setPenColor(vex::color::black);
     Brain.Screen.setCursor(1, 1);
-    Brain.Screen.print("Lol.");
+    Brain.Screen.print("No Auto Chosen! Tell refs technical difficulties and to wait a second, restart program");
 }
 
 void auton1( void ) {
-    //RED FRONT AUTON
-    
-    
+//RED FRONT AUTON
+    //Config Auto 1
     Brain.Screen.setFillColor(vex::color::white);
     Brain.Screen.clearScreen(vex::color::white);
     Brain.Screen.setPenColor(vex::color::black);
     Brain.Screen.setCursor(1, 1);
-    Brain.Screen.print("Lol.");
+    Brain.Screen.print("Running Auto 1");
+    Motor19.setVelocity(200, velocityUnits::pct);
+    Motor20.setVelocity(200, velocityUnits::pct);
+    Motor2.setVelocity(200, velocityUnits::pct);
+    Motor3.setVelocity(200, velocityUnits::pct);
 
+//START AUTO CODE
+  //Drive forward and reach 720 degrees at full power forward
+  Motor19.rotateFor(720, rotationUnits::deg, false);
+  Motor20.rotateFor(720, rotationUnits::deg, false);
+  Motor2.rotateFor(720, rotationUnits::deg, false); 
+  Motor3.rotateFor(720, rotationUnits::deg, false);
 
 }
 
@@ -488,10 +443,11 @@ void screens(int screen) {
         Brain.Screen.setFont(vex::fontType::mono20);
         
         //TODO: Explain what each auton does and select auton in preauton.
-        
+        //2L 3R
+        //19L 20R
         if (auton == 0) {
             Brain.Screen.setCursor(1, 1);
-            Brain.Screen.print("Do nothing.");
+            Brain.Screen.print("Auton 0.");
         } else if (auton == 1) {
             Brain.Screen.setCursor(1, 1);
             Brain.Screen.print("Auton 1.");
