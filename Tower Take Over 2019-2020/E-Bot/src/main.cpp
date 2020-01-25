@@ -9,6 +9,54 @@
 // Motor18              motor         18              
 // Motor19              motor         19              
 // Motor6               motor         6               
+// ---- END VEXCODE CONFIGURED DEVICES ----
+// ---- START VEXCODE CONFIGURED DEVICES ----
+// Robot Configuration:
+// [Name]               [Type]        [Port(s)]
+// Controller1          controller                    
+// Motor1               motor         1               
+// Motor10              motor         10              
+// Motor11              motor         11              
+// Motor20              motor         20              
+// Motor18              motor         18              
+// Motor19              motor         19              
+// Motor6               motor         6               
+// ---- END VEXCODE CONFIGURED DEVICES ----
+// ---- START VEXCODE CONFIGURED DEVICES ----
+// Robot Configuration:
+// [Name]               [Type]        [Port(s)]
+// Controller1          controller                    
+// Motor1               motor         1               
+// Motor10              motor         10              
+// Motor11              motor         11              
+// Motor20              motor         20              
+// Motor18              motor         18              
+// Motor19              motor         19              
+// Motor6               motor         6               
+// ---- END VEXCODE CONFIGURED DEVICES ----
+// ---- START VEXCODE CONFIGURED DEVICES ----
+// Robot Configuration:
+// [Name]               [Type]        [Port(s)]
+// Controller1          controller                    
+// Motor1               motor         1               
+// Motor10              motor         10              
+// Motor11              motor         11              
+// Motor20              motor         20              
+// Motor18              motor         18              
+// Motor19              motor         19              
+// Motor6               motor         6               
+// ---- END VEXCODE CONFIGURED DEVICES ----
+// ---- START VEXCODE CONFIGURED DEVICES ----
+// Robot Configuration:
+// [Name]               [Type]        [Port(s)]
+// Controller1          controller                    
+// Motor1               motor         1               
+// Motor10              motor         10              
+// Motor11              motor         11              
+// Motor20              motor         20              
+// Motor18              motor         18              
+// Motor19              motor         19              
+// Motor6               motor         6               
 // Motor7               motor         7               
 // ---- END VEXCODE CONFIGURED DEVICES ----
 // ---- START VEXCODE CONFIGURED DEVICES ----
@@ -587,7 +635,7 @@ void autonomous(void) {
 void usercontrol(void) {
 
   // Speed for lift
-  int armSpeedPCT = 200;
+  int armSpeedPCT = 70;
     
   //Spin at half speed
   Motor1.setVelocity(50, vex::velocityUnits::pct);
@@ -653,23 +701,24 @@ void usercontrol(void) {
            Motor18.stop(brakeType::hold);
            Motor19.stop(brakeType::hold);
         }
+        int liftSpeedPCT = 20;
         // grabber up
         if(Controller1.ButtonUp.pressing())
         {
-          Motor6.spin(directionType::rev, armSpeedPCT, velocityUnits::pct);
-          Motor7.spin(directionType::rev, armSpeedPCT, velocityUnits::pct);
+          Motor6.spin(directionType::rev, liftSpeedPCT, velocityUnits::pct);
+         
         }
         // grabber down
         else if (Controller1.ButtonDown.pressing())
         {
-          Motor6.spin(directionType::fwd, armSpeedPCT, velocityUnits::pct);
-          Motor7.spin(directionType::fwd, armSpeedPCT, velocityUnits::pct);
+          Motor6.spin(directionType::fwd, liftSpeedPCT, velocityUnits::pct);
+          
         }
         // holding pressure for grabber
         else
         {
           Motor6.stop(brakeType::hold);
-          Motor7.stop(brakeType::hold); 
+          
         }
     wait(20,msec); // Sleep the task for a short amount of time to 
                    // prevent wasted resources

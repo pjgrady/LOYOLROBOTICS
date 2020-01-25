@@ -11,7 +11,6 @@ extern motor Motor20;
 extern motor Motor18;
 extern motor Motor19;
 extern motor Motor6;
-extern motor Motor7;
 
 /**
  * Used to initialize code/tasks/devices added using tools in VEXcode Text.

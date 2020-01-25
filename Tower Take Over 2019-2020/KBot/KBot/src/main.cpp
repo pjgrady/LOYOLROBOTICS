@@ -1,3 +1,48 @@
+// ---- START VEXCODE CONFIGURED DEVICES ----
+// Robot Configuration:
+// [Name]               [Type]        [Port(s)]
+// Controller1          controller                    
+// Motor3               motor         3               
+// Motor2               motor         2               
+// Motor19              motor         19              
+// Motor20              motor         20              
+// Motor14              motor         14              
+// Motor6               motor         6               
+// Motor7               motor         7               
+// ---- END VEXCODE CONFIGURED DEVICES ----
+// ---- START VEXCODE CONFIGURED DEVICES ----
+// Robot Configuration:
+// [Name]               [Type]        [Port(s)]
+// Controller1          controller                    
+// Motor3               motor         3               
+// Motor2               motor         2               
+// Motor19              motor         19              
+// Motor20              motor         20              
+// Motor14              motor         14              
+// Motor6               motor         6               
+// Motor7               motor         7               
+// ---- END VEXCODE CONFIGURED DEVICES ----
+// ---- START VEXCODE CONFIGURED DEVICES ----
+// Robot Configuration:
+// [Name]               [Type]        [Port(s)]
+// Controller1          controller                    
+// Motor3               motor         3               
+// Motor2               motor         2               
+// Motor19              motor         19              
+// Motor20              motor         20              
+// Motor14              motor         14              
+// Motor6               motor         6               
+// ---- END VEXCODE CONFIGURED DEVICES ----
+// ---- START VEXCODE CONFIGURED DEVICES ----
+// Robot Configuration:
+// [Name]               [Type]        [Port(s)]
+// Controller1          controller                    
+// Motor3               motor         3               
+// Motor2               motor         2               
+// Motor19              motor         19              
+// Motor20              motor         20              
+// Motor14              motor         14              
+// ---- END VEXCODE CONFIGURED DEVICES ----
 /*----------------------------------------------------------------------------*/
 /*                                                                            */
 /*    Module:       main.cpp                                                  */
@@ -567,48 +612,39 @@ void advance(void){
   Motor3.setVelocity(200,vex::velocityUnits::pct);
 }
 
-void usercontrol( void ) {    
-    
-    while(1) {
-      int brake = 1; //Brakes on
+void usercontrol(void) {
+
+  //Driving Control
+  while(1)
+    {
+      
+        int brake = 1; //Brakes on
         // Initializing Robot Configuration. DO NOT REMOVE!
         vexcodeInit();
         vex::task::sleep(50);
-        Controller1.Screen.print("D.C.");
-      
-        // Forward Left
-        if(Controller1.Axis3.value() > 0)  {
+        Controller1.Screen.print("Hello");
+
            brake = 0;
            Motor19.spin(directionType::fwd,Controller1.Axis3.value(),vex::velocityUnits::pct);
            Motor2.spin(directionType::fwd,Controller1.Axis3.value(), vex::velocityUnits::pct);
            Motor20.vex::motor::setStopping(coast);
            Motor3.vex::motor::setStopping(coast);
-        }
-        //backwawrds Left
-        if(Controller1.Axis3.value() < 0){
-           brake = 0;
-           Motor19.spin(directionType::fwd,Controller1.Axis3.value(),vex::velocityUnits::pct);
-           Motor2.spin(directionType::fwd,Controller1.Axis3.value(), vex::velocityUnits::pct);
-           Motor20.vex::motor::setStopping(coast);
-           Motor3.vex::motor::setStopping(coast);
-        }
-        // Forward Right
-        if(Controller1.Axis2.value() > 0){
            brake = 0;
            Motor19.vex::motor::setStopping(coast);
            Motor2.vex::motor::setStopping(coast);
            Motor20.spin(directionType::fwd,Controller1.Axis2.value(), vex::velocityUnits::pct);
            Motor3.spin(directionType::fwd,Controller1.Axis2.value(), vex::velocityUnits::pct);
+       
+        if(Controller1.ButtonUp.pressing() && Motor14.position(degrees) < 188){
+          Motor14.spin(directionType::fwd, 20, velocityUnits::pct);
         }
-        //Forward Left
-        if(Controller1.Axis2.value() < 0){
-           brake = 0;
-           Motor19.vex::motor::setStopping(coast);
-           Motor2.vex::motor::setStopping(coast);
-           Motor20.spin(directionType::fwd,Controller1.Axis2.value(), vex::velocityUnits::pct);
-           Motor3.spin(directionType::fwd,Controller1.Axis2.value(), vex::velocityUnits::pct);
+        else if(Controller1.ButtonDown.pressing()){
+          Motor14.spin(directionType::rev, 20, velocityUnits::pct);
         }
-        
+        else{
+          Motor14.stop(brakeType::hold);
+        }
+
         if(brake)
         { 
             Motor2.stop(brakeType::brake);
@@ -617,14 +653,27 @@ void usercontrol( void ) {
             Motor20.stop(brakeType::brake);
         }
 
-//2L 3R
-//19L 20R
-      
-    wait(20,msec); // Sleep the task for a short amount of time to 
-                   // prevent wasted resources
-      
-    }    
+        
+        //control pickup
+        if(Controller1.ButtonR1.pressing())
+        {
+          Motor6.spin(directionType::fwd, 200, velocityUnits::pct);
+          Motor7.spin(directionType::fwd, 200, velocityUnits::pct);
+        }
+        else if(Controller1.ButtonL1.pressing())
+        {
+          Motor6.spin(directionType::rev, 200, velocityUnits::pct);
+          Motor7.spin(directionType::rev, 200, velocityUnits::pct);
+        }
+        else
+        {
+          Motor6.stop(brakeType::brake);
+          Motor7.stop(brakeType::brake);
+        }
+        
+    }
 }
+
 
 int main() {
 
