@@ -142,6 +142,14 @@ void auton1( void ) {
     Brain.Screen.setPenColor(vex::color::black);
     Brain.Screen.setCursor(1, 1);
     Brain.Screen.print("Auton 1.");
+    Motor11.setVelocity(200, velocityUnits::pct);
+    Motor10.setVelocity(200, velocityUnits::pct);
+    
+//START AUTO CODE
+  //Drive forward and reach 720 degrees at full power forward
+  Motor11.rotateFor(-720, rotationUnits::deg, false);
+  Motor10.rotateFor(720, rotationUnits::deg, false);
+ 
 
 
 }
@@ -703,13 +711,13 @@ void usercontrol(void) {
         }
         int liftSpeedPCT = 20;
         // grabber up
-        if(Controller1.ButtonUp.pressing())
+        if(Controller1.ButtonL1.pressing())
         {
           Motor6.spin(directionType::rev, liftSpeedPCT, velocityUnits::pct);
          
         }
         // grabber down
-        else if (Controller1.ButtonDown.pressing())
+        else if (Controller1.ButtonL2.pressing())
         {
           Motor6.spin(directionType::fwd, liftSpeedPCT, velocityUnits::pct);
           
