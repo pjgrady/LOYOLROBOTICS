@@ -161,6 +161,25 @@ void auton2( void ) {
     Brain.Screen.setPenColor(vex::color::black);
     Brain.Screen.setCursor(1, 1);
     Brain.Screen.print("Auton 2.");
+
+    //
+    Motor18.setVelocity(100, velocityUnits::pct);
+    Motor19.setVelocity(100, velocityUnits::pct);
+    Motor6.setVelocity(50, velocityUnits::pct);
+    //
+    Motor18.rotateFor(360, rotationUnits::deg, false);
+    Motor19.rotateFor(360, rotationUnits::deg, false);
+
+  
+    int counter = 0;
+
+    while (counter != 100){
+      Motor6.rotateFor(180, rotationUnits::deg, false);
+      Motor6.rotateFor(-180, rotationUnits::deg, false);
+      counter+=1;
+    }
+    //Motor18.rotateFor(-360, rotationUnits::deg, false);
+    //Motor19.rotateFor(-360, rotationUnits::deg, false);
 }
 
 void auton3( void ) {
