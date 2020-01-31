@@ -165,18 +165,24 @@ void auton2( void ) {
     //
     Motor18.setVelocity(100, velocityUnits::pct);
     Motor19.setVelocity(100, velocityUnits::pct);
-    Motor6.setVelocity(50, velocityUnits::pct);
+    Motor6.setVelocity(200, velocityUnits::pct);
     //
-    Motor18.rotateFor(360, rotationUnits::deg, false);
-    Motor19.rotateFor(360, rotationUnits::deg, false);
+    Motor18.rotateFor(directionType::fwd,360, rotationUnits::deg, false);
+    Motor19.rotateFor(directionType::fwd,360, rotationUnits::deg, false);
 
-  
+    wait(1500,msec);
     int counter = 0;
 
     while (counter != 100){
-      Motor6.rotateFor(180, rotationUnits::deg, false);
-      Motor6.rotateFor(-180, rotationUnits::deg, false);
-      counter+=1;
+      Motor6.rotateFor(directionType::fwd,270, rotationUnits::deg, false);
+      wait(1000,msec);
+      int count = 0;
+      while (count!= 1){
+        Motor6.rotateFor(directionType::rev,270, rotationUnits::deg, false);  
+        wait(1000, msec);
+        count++;
+      }
+      counter++;
     }
     //Motor18.rotateFor(-360, rotationUnits::deg, false);
     //Motor19.rotateFor(-360, rotationUnits::deg, false);
