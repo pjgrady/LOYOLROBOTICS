@@ -622,7 +622,10 @@ void usercontrol(void) {
         // Initializing Robot Configuration. DO NOT REMOVE!
         vexcodeInit();
         vex::task::sleep(50);
-        Controller1.Screen.print("Hello");
+        //Controller1.Screen.print("Driver");
+        /*int mv1 = Motor14.position(degrees);
+        Controller1.Screen.print("Tray:%f degrees",mv1);
+        Brain.Screen.print("Arm rotation: %f degrees",Motor14.rotation(rotationUnits::deg));*/
 
            brake = 0;
            Motor19.spin(directionType::fwd,Controller1.Axis3.value(),vex::velocityUnits::pct);
@@ -635,11 +638,11 @@ void usercontrol(void) {
            Motor20.spin(directionType::fwd,Controller1.Axis2.value(), vex::velocityUnits::pct);
            Motor3.spin(directionType::fwd,Controller1.Axis2.value(), vex::velocityUnits::pct);
        
-        if(Controller1.ButtonUp.pressing() && Motor14.position(degrees) < 188){
-          Motor14.spin(directionType::fwd, 20, velocityUnits::pct);
+        if(Controller1.ButtonUp.pressing() && Motor14.position(degrees) < 380){
+          Motor14.spin(directionType::fwd, 25, velocityUnits::pct);
         }
         else if(Controller1.ButtonDown.pressing()){
-          Motor14.spin(directionType::rev, 20, velocityUnits::pct);
+          Motor14.spin(directionType::rev, 25, velocityUnits::pct);
         }
         else{
           Motor14.stop(brakeType::hold);
