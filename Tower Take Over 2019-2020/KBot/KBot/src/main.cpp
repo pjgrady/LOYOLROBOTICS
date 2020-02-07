@@ -638,11 +638,11 @@ void usercontrol(void) {
            Motor20.spin(directionType::fwd,Controller1.Axis2.value(), vex::velocityUnits::pct);
            Motor3.spin(directionType::fwd,Controller1.Axis2.value(), vex::velocityUnits::pct);
        
-        if(Controller1.ButtonUp.pressing() && Motor14.position(degrees) < 380){
-          Motor14.spin(directionType::fwd, 25, velocityUnits::pct);
+        if(Controller1.ButtonR1.pressing() && Motor14.position(degrees) < 380){
+          Motor14.spin(directionType::fwd, 160, velocityUnits::pct);
         }
-        else if(Controller1.ButtonDown.pressing()){
-          Motor14.spin(directionType::rev, 25, velocityUnits::pct);
+        else if(Controller1.ButtonR2.pressing()){
+          Motor14.spin(directionType::rev, 160, velocityUnits::pct);
         }
         else{
           Motor14.stop(brakeType::hold);
@@ -658,12 +658,12 @@ void usercontrol(void) {
 
         
         //control pickup
-        if(Controller1.ButtonR1.pressing())
+        if(Controller1.ButtonL1.pressing())
         {
           Motor6.spin(directionType::fwd, 200, velocityUnits::pct);
           Motor7.spin(directionType::fwd, 200, velocityUnits::pct);
         }
-        else if(Controller1.ButtonL1.pressing())
+        else if(Controller1.ButtonL2.pressing())
         {
           Motor6.spin(directionType::rev, 200, velocityUnits::pct);
           Motor7.spin(directionType::rev, 200, velocityUnits::pct);
