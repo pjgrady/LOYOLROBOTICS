@@ -2,60 +2,11 @@
 // Robot Configuration:
 // [Name]               [Type]        [Port(s)]
 // Controller1          controller                    
-// Motor1               motor         1               
-// Motor10              motor         10              
-// Motor11              motor         11              
-// Motor20              motor         20              
-// Motor18              motor         18              
+// Motor3               motor         3               
+// Motor2               motor         2               
 // Motor19              motor         19              
-// Motor6               motor         6               
-// ---- END VEXCODE CONFIGURED DEVICES ----
-// ---- START VEXCODE CONFIGURED DEVICES ----
-// Robot Configuration:
-// [Name]               [Type]        [Port(s)]
-// Controller1          controller                    
-// Motor1               motor         1               
-// Motor10              motor         10              
-// Motor11              motor         11              
 // Motor20              motor         20              
-// Motor18              motor         18              
-// Motor19              motor         19              
-// Motor6               motor         6               
-// ---- END VEXCODE CONFIGURED DEVICES ----
-// ---- START VEXCODE CONFIGURED DEVICES ----
-// Robot Configuration:
-// [Name]               [Type]        [Port(s)]
-// Controller1          controller                    
-// Motor1               motor         1               
-// Motor10              motor         10              
-// Motor11              motor         11              
-// Motor20              motor         20              
-// Motor18              motor         18              
-// Motor19              motor         19              
-// Motor6               motor         6               
-// ---- END VEXCODE CONFIGURED DEVICES ----
-// ---- START VEXCODE CONFIGURED DEVICES ----
-// Robot Configuration:
-// [Name]               [Type]        [Port(s)]
-// Controller1          controller                    
-// Motor1               motor         1               
-// Motor10              motor         10              
-// Motor11              motor         11              
-// Motor20              motor         20              
-// Motor18              motor         18              
-// Motor19              motor         19              
-// Motor6               motor         6               
-// ---- END VEXCODE CONFIGURED DEVICES ----
-// ---- START VEXCODE CONFIGURED DEVICES ----
-// Robot Configuration:
-// [Name]               [Type]        [Port(s)]
-// Controller1          controller                    
-// Motor1               motor         1               
-// Motor10              motor         10              
-// Motor11              motor         11              
-// Motor20              motor         20              
-// Motor18              motor         18              
-// Motor19              motor         19              
+// Motor14              motor         14              
 // Motor6               motor         6               
 // Motor7               motor         7               
 // ---- END VEXCODE CONFIGURED DEVICES ----
@@ -63,20 +14,41 @@
 // Robot Configuration:
 // [Name]               [Type]        [Port(s)]
 // Controller1          controller                    
-// Motor1               motor         1               
-// Motor10              motor         10              
-// Motor11              motor         11              
-// Motor20              motor         20              
-// Motor18              motor         18              
+// Motor3               motor         3               
+// Motor2               motor         2               
 // Motor19              motor         19              
+// Motor20              motor         20              
+// Motor14              motor         14              
 // Motor6               motor         6               
+// Motor7               motor         7               
+// ---- END VEXCODE CONFIGURED DEVICES ----
+// ---- START VEXCODE CONFIGURED DEVICES ----
+// Robot Configuration:
+// [Name]               [Type]        [Port(s)]
+// Controller1          controller                    
+// Motor3               motor         3               
+// Motor2               motor         2               
+// Motor19              motor         19              
+// Motor20              motor         20              
+// Motor14              motor         14              
+// Motor6               motor         6               
+// ---- END VEXCODE CONFIGURED DEVICES ----
+// ---- START VEXCODE CONFIGURED DEVICES ----
+// Robot Configuration:
+// [Name]               [Type]        [Port(s)]
+// Controller1          controller                    
+// Motor3               motor         3               
+// Motor2               motor         2               
+// Motor19              motor         19              
+// Motor20              motor         20              
+// Motor14              motor         14              
 // ---- END VEXCODE CONFIGURED DEVICES ----
 /*----------------------------------------------------------------------------*/
 /*                                                                            */
 /*    Module:       main.cpp                                                  */
-/*    Author:       C:\Users\owner                                            */
-/*    Created:      Fri Nov 08 2019                                           */
-/*    Description:  V5 project                                                */
+/*    Author:       VEX                                                       */
+/*    Created:      Thu Sep 26 2019                                           */
+/*    Description:  Competition Template                                      */
 /*                                                                            */
 /*----------------------------------------------------------------------------*/
 
@@ -84,19 +56,12 @@
 // Robot Configuration:
 // [Name]               [Type]        [Port(s)]
 // Controller1          controller                    
-// Motor1               motor         1               
-// Motor10              motor         10              
-// Motor11              motor         11              
-// Motor20              motor         20              
-// Motor18              motor         18              
-// Motor19              motor         19              
+// FrontRightMotor      motor         1               
+// FrontLeftMotor       motor         2               
+// BackLeftMotor        motor         3               
+// BackRightMotor       motor         4               
 // ---- END VEXCODE CONFIGURED DEVICES ----
 
-//    F-m 
-//       
-//L       R
-//
-//    B
 #include "vex.h"
 
 using namespace vex;
@@ -104,7 +69,8 @@ using namespace vex;
 // A global instance of competition
 competition Competition;
 
-//field
+
+//Field
 int tiles = 6;
 int tile_px = 240/tiles;
 
@@ -123,34 +89,46 @@ bool front;
 int auton = 0;
 
 int promise = 6;
-
+int force = 0;
 
 void auton0( void ) {
     Brain.Screen.setFillColor(vex::color::white);
     Brain.Screen.clearScreen(vex::color::white);
     Brain.Screen.setPenColor(vex::color::black);
     Brain.Screen.setCursor(1, 1);
-    Brain.Screen.print("Lol.");
+    Brain.Screen.print("No Auto Chosen! Tell refs technical difficulties and to wait a second, restart program");
+}
+
+void Movement(float inches){
+    float WHEEL_CIRCUMFERENCE = 4.125;
+    float inchesPerDegree = WHEEL_CIRCUMFERENCE / 360;
+    float degrees = inches / inchesPerDegree;
+    Motor19.startRotateFor(degrees, vex::rotationUnits::deg, 200, vex::velocityUnits::pct);
+    Motor20.startRotateFor(degrees, vex::rotationUnits::deg, 200, vex::velocityUnits::pct);
+    Motor3.startRotateFor(degrees, vex::rotationUnits::deg, 200, vex::velocityUnits::pct);
+    Motor2.startRotateFor(degrees, vex::rotationUnits::deg, 200, vex::velocityUnits::pct);
+
+
 }
 
 void auton1( void ) {
-    //RED FRONT AUTON
-    
-    
+//RED FRONT AUTON
+    //Config Auto 1
     Brain.Screen.setFillColor(vex::color::white);
     Brain.Screen.clearScreen(vex::color::white);
     Brain.Screen.setPenColor(vex::color::black);
     Brain.Screen.setCursor(1, 1);
-    Brain.Screen.print("Auton 1.");
-    Motor11.setVelocity(200, velocityUnits::pct);
-    Motor10.setVelocity(200, velocityUnits::pct);
+    Brain.Screen.print("E");
     
-//START AUTO CODE
-  //Drive forward and reach 720 degrees at full power forward
-  Motor11.rotateFor(-720, rotationUnits::deg, false);
-  Motor10.rotateFor(720, rotationUnits::deg, false);
- 
+     //START AUTO CODE
+     //Drive forward and reach 540 degrees at 3/4 power forward
 
+    Motor6.spin(directionType::fwd, 200, velocityUnits::pct); 
+    Motor7.spin(directionType::fwd, 200, velocityUnits::pct);
+
+     Movement(1.2 * 12);
+     vex::task::sleep(200);
+     Movement(-1.2 * 12);
 
 }
 
@@ -160,31 +138,7 @@ void auton2( void ) {
     Brain.Screen.clearScreen(vex::color::white);
     Brain.Screen.setPenColor(vex::color::black);
     Brain.Screen.setCursor(1, 1);
-    Brain.Screen.print("Auton 2.");
-
-    //
-    Motor18.setVelocity(100, velocityUnits::pct);
-    Motor19.setVelocity(100, velocityUnits::pct);
-    Motor6.setVelocity(200, velocityUnits::pct);
-    //
-    Motor18.rotateFor(directionType::fwd,360, rotationUnits::deg, false);
-    Motor19.rotateFor(directionType::fwd,360, rotationUnits::deg, false);
-
-    wait(1500,msec);
-    int counter = 0;
-
-    while (counter != 100){
-      Motor6.rotateFor(directionType::fwd,270, rotationUnits::deg, false);
-      wait(1000,msec);
-      int count = 0;
-      while (count!= 1){
-        Motor6.rotateFor(directionType::rev,270, rotationUnits::deg, false);  
-        wait(1000, msec);
-        count++;
-      }
-      counter++;
-    }
-    
+    Brain.Screen.print("Lol.");
 }
 
 void auton3( void ) {
@@ -193,31 +147,7 @@ void auton3( void ) {
     Brain.Screen.clearScreen(vex::color::white);
     Brain.Screen.setPenColor(vex::color::black);
     Brain.Screen.setCursor(1, 1);
-    Brain.Screen.print("Auton 3.");
-
-    //Drive velocity set
-    Motor11.setVelocity(100, velocityUnits::pct);
-    Motor10.setVelocity(100, velocityUnits::pct);
-    Motor1.setVelocity(100, velocityUnits::pct);
-    Motor20.setVelocity(100, velocityUnits::pct);
-    //Lift velocity set
-    Motor18.setVelocity(100, velocityUnits::pct);
-    Motor19.setVelocity(100, velocityUnits::pct);
-    //Intake velocity set
-    Motor6.setVelocity(100, velocityUnits::pct);
-
-    //Drive Rotation
-    Motor11.rotateFor(directionType::fwd, 180, rotationUnits::deg, false);
-    Motor10.rotateFor(directionType::fwd, 180, rotationUnits::deg, false);
-    Motor1.rotateFor(directionType::fwd, 180, rotationUnits::deg, false);
-    Motor20.rotateFor(directionType::fwd, 180, rotationUnits::deg, false);
-    //Lift Rotation
-    Motor18.rotateFor(directionType::fwd, 180, rotationUnits::deg, false);
-    Motor19.rotateFor(directionType::fwd, 180, rotationUnits::deg, false);
-    //Intake Rotation
-    Motor6.rotateFor(directionType::fwd, 180, rotationUnits::deg, false);
-
-
+    Brain.Screen.print("Lol.");
 }
 
 void auton4( void ) {
@@ -226,7 +156,7 @@ void auton4( void ) {
     Brain.Screen.clearScreen(vex::color::white);
     Brain.Screen.setPenColor(vex::color::black);
     Brain.Screen.setCursor(1, 1);
-    Brain.Screen.print("Auton 4.");
+    Brain.Screen.print("Lol.");
 
 }
 
@@ -235,7 +165,7 @@ void auton5( void ) {
     Brain.Screen.clearScreen(vex::color::white);
     Brain.Screen.setPenColor(vex::color::black);
     Brain.Screen.setCursor(1, 1);
-    Brain.Screen.print("Auton 5.");
+    Brain.Screen.print("Lol.");
 }
 
 void auton6( void ) {
@@ -243,7 +173,7 @@ void auton6( void ) {
     Brain.Screen.clearScreen(vex::color::white);
     Brain.Screen.setPenColor(vex::color::black);
     Brain.Screen.setCursor(1, 1);
-    Brain.Screen.print("Auton 6.");
+    Brain.Screen.print("Lol.");
 }
 
 void auton7( void ) {
@@ -253,7 +183,7 @@ void auton7( void ) {
     Brain.Screen.clearScreen(vex::color::white);
     Brain.Screen.setPenColor(vex::color::black);
     Brain.Screen.setCursor(1, 1);
-    Brain.Screen.print("Auton 7.");
+    Brain.Screen.print("Lol.");
 
 }
 
@@ -262,7 +192,7 @@ void auton8( void ) {
     Brain.Screen.clearScreen(vex::color::white);
     Brain.Screen.setPenColor(vex::color::black);
     Brain.Screen.setCursor(1, 1);
-    Brain.Screen.print("Auton 8.");
+    Brain.Screen.print("Lol.");
 }
 
 void auton9( void ) {
@@ -270,7 +200,7 @@ void auton9( void ) {
     Brain.Screen.clearScreen(vex::color::white);
     Brain.Screen.setPenColor(vex::color::black);
     Brain.Screen.setCursor(1, 1);
-    Brain.Screen.print("Auton 9.");
+    Brain.Screen.print("Lol.");
 }
 
 void auton10( void ) {
@@ -279,7 +209,7 @@ void auton10( void ) {
     Brain.Screen.clearScreen(vex::color::white);
     Brain.Screen.setPenColor(vex::color::black);
     Brain.Screen.setCursor(1, 1);
-    Brain.Screen.print("Auton 10.");
+    Brain.Screen.print("Lol.");
 
 }
 
@@ -288,7 +218,7 @@ void auton11( void ) {
     Brain.Screen.clearScreen(vex::color::white);
     Brain.Screen.setPenColor(vex::color::black);
     Brain.Screen.setCursor(1, 1);
-    Brain.Screen.print("Auton 11.");
+    Brain.Screen.print("Lol.");
 }
 
 void auton12( void ) {
@@ -296,7 +226,7 @@ void auton12( void ) {
     Brain.Screen.clearScreen(vex::color::white);
     Brain.Screen.setPenColor(vex::color::black);
     Brain.Screen.setCursor(1, 1);
-    Brain.Screen.print("Auton 12.");
+    Brain.Screen.print("Lol.");
 }
 
 void screens(int screen) {
@@ -327,7 +257,47 @@ void screens(int screen) {
             {{200, 240}, {80, 120}, {240, 240}},    //3: Top Right Blue
             {{200, 240}, {160, 200}, {240, 240}}    //4: Bottom Right Blue
         };
-       
+        
+        int platforms[3][3][2] = {
+            {{65, 105}, {120, 160}, {0, 0}}, //red
+            {{135, 175}, {120, 160}, {240, 240}}, //blue
+            {{100, 140}, {120, 160}, {60, 60}} //yellow
+        };
+        
+        int caps[8][2][2] = {
+            {{60, 60}, {240, 240}},
+            {{100, 100}, {0, 0}},
+            {{100, 180}, {0, 0}},
+            {{100, 220}, {240, 240}},
+            {{180, 60}, {0, 0}},
+            {{140, 100}, {240, 240}},
+            {{140, 180}, {240, 240}},
+            {{140, 220}, {0, 0}}
+        };
+        
+        int balls[16][2][2] = {
+            {{65, 120}, {60, 60}},
+            {{65, 160}, {60, 60}},
+            {{175, 120}, {60, 60}},
+            {{175, 160}, {60, 60}},
+            {{100, 100}, {60, 60}},
+            {{140, 100}, {60, 60}},
+            {{100, 180}, {60, 60}},
+            {{140, 180}, {60, 60}},
+            {{55, 55}, {60, 60}},
+            {{65, 65}, {60, 60}},
+            {{175, 65}, {60, 60}},
+            {{185, 55}, {60, 60}},
+            {{100, 214}, {60, 60}},
+            {{100, 226}, {60, 60}},
+            {{140, 214}, {60, 60}},
+            {{140, 226}, {60, 60}}
+        };
+        
+        for(int i = 0; i < 8; i++) {
+            Brain.Screen.setPenColor(caps[i][1][0]);
+            Brain.Screen.drawCircle(caps[i][0][0]+x_displacement, caps[i][0][1]+y_displacement, capsRadiusPX, caps[i][1][1]);
+        }
         
         for(int i = 0; i < 4; i++) {
             int length = buttons[i][0][1] - buttons[i][0][0];
@@ -337,6 +307,49 @@ void screens(int screen) {
             Brain.Screen.drawRectangle(buttons[i][0][0]+x_displacement, buttons[i][1][0]+y_displacement, width, length, buttons[i][2][1]);
         }
         
+        //Expansion Zone
+        Brain.Screen.setPenColor(vex::color::white);
+        Brain.Screen.setPenWidth(2);
+        Brain.Screen.drawLine(0+x_displacement, 120+y_displacement, 40+x_displacement, 120+y_displacement);
+        Brain.Screen.drawLine(200+x_displacement, 120+y_displacement, 240+x_displacement, 120+y_displacement);
+        Brain.Screen.drawLine(40+x_displacement, 120+y_displacement, 40+x_displacement, 200+y_displacement);
+        Brain.Screen.drawLine(200+x_displacement, 120+y_displacement, 200+x_displacement, 200+y_displacement);
+        
+        Brain.Screen.drawLine(40+x_displacement, 200+y_displacement, 200+x_displacement, 200+y_displacement);
+        Brain.Screen.drawLine(120+x_displacement, 240+y_displacement, 120+x_displacement, 0+y_displacement);
+        
+        //Flag Pole
+        Brain.Screen.setPenColor(vex::color::black);
+        Brain.Screen.setPenWidth(7);
+        Brain.Screen.drawLine(0+x_displacement, 0+y_displacement, 0+x_displacement, 40+y_displacement);
+        Brain.Screen.drawLine(0+x_displacement, 0+y_displacement, 240+x_displacement, 0+y_displacement);
+        Brain.Screen.drawLine(240+x_displacement, 0+y_displacement, 240+x_displacement, 40+y_displacement);
+        Brain.Screen.drawLine(40+x_displacement, 0+y_displacement, 40+x_displacement, 20+y_displacement);
+        Brain.Screen.drawLine(120+x_displacement, 0+y_displacement, 120+x_displacement, 20+y_displacement);
+        Brain.Screen.drawLine(200+x_displacement, 0+y_displacement, 200+x_displacement, 20+y_displacement);
+        
+        //Flags
+        Brain.Screen.setPenWidth(3);
+        Brain.Screen.setPenColor(vex::color::red);
+        Brain.Screen.drawLine(120+x_displacement, 20+y_displacement, 134+x_displacement, 6+y_displacement);
+        Brain.Screen.drawLine(200+x_displacement, 20+y_displacement, 220+x_displacement, 20+y_displacement);
+        
+        Brain.Screen.setPenColor(vex::color::blue);
+        Brain.Screen.drawLine(40+x_displacement, 20+y_displacement, 20+x_displacement, 20+y_displacement);
+        Brain.Screen.drawLine(120+x_displacement, 20+y_displacement, 106+x_displacement, 6+y_displacement);
+        
+        for(int i = 0; i < 3; i++) {
+            int length = platforms[i][0][1] - platforms[i][0][0];
+            int width = platforms[i][1][1] - platforms[i][1][0];
+
+            Brain.Screen.setPenColor(platforms[i][2][0]);
+            Brain.Screen.drawRectangle(platforms[i][0][0]+x_displacement, platforms[i][1][0]+y_displacement, width, length, platforms[i][2][1]);
+        }
+        
+        for(int i = 0; i < 16; i++) {
+            Brain.Screen.setPenColor(balls[i][1][0]);
+            Brain.Screen.drawCircle(balls[i][0][0]+x_displacement, balls[i][0][1]+y_displacement, ballsRadiusPX, balls[i][1][1]);
+        }
         
         button_pressed = 0;
         while (button_pressed == 0) {
@@ -486,16 +499,17 @@ void screens(int screen) {
         Brain.Screen.setFont(vex::fontType::mono20);
         
         //TODO: Explain what each auton does and select auton in preauton.
-        
+        //2L 3R
+        //19L 20R
         if (auton == 0) {
             Brain.Screen.setCursor(1, 1);
-            Brain.Screen.print("Do nothing.");
+            Brain.Screen.print("Auton 0.");
         } else if (auton == 1) {
             Brain.Screen.setCursor(1, 1);
-            Brain.Screen.print("Auton 1: Push one block into scoring zone.");
+            Brain.Screen.print("Auton 1.");
         } else if (auton == 2) {
             Brain.Screen.setCursor(1, 1);
-            Brain.Screen.print("Auton 2: Raise up wave at crowd, lower down.");
+            Brain.Screen.print("Auton 2.");
         } else if (auton == 3) {
             Brain.Screen.setCursor(1, 1);
             Brain.Screen.print("Auton 3.");
@@ -574,8 +588,8 @@ void pre_auton( void ) {
   vexcodeInit();
 };
 
-void autonomous(void) {
-  if (auton == 0) {
+void autonomous( void ) {
+    if (auton == 0) {
         auton0();
     } else if (auton == 1) {
         auton1();
@@ -604,18 +618,14 @@ void autonomous(void) {
     }
 }
 
+void advance(void){
+  Motor2.setVelocity(150, vex::velocityUnits::pct);
+  Motor3.setVelocity(150,vex::velocityUnits::pct);
+}
 
 void usercontrol(void) {
 
-  // Speed for lift
-  int armSpeedPCT = 70;
-    
-  //Spin at half speed
-  Motor1.setVelocity(50, vex::velocityUnits::pct);
-  Motor10.setVelocity(50,vex::velocityUnits::pct);
-  Motor11.setVelocity(50,vex::velocityUnits::pct);
-  Motor20.setVelocity(50,vex::velocityUnits::pct); 
-
+  //Driving Control
   while(1)
     {
       
@@ -623,104 +633,73 @@ void usercontrol(void) {
         // Initializing Robot Configuration. DO NOT REMOVE!
         vexcodeInit();
         vex::task::sleep(50);
-        Controller1.Screen.print("");
-        //360 spin on axis1
-        if(Controller1.Axis1.value())
-        {
-            brake = 0;
-            Motor1.spin(vex::directionType::fwd, Controller1.Axis1.value(), vex::velocityUnits::pct);
-            Motor10.spin(vex::directionType::fwd,Controller1.Axis1.value(), vex::velocityUnits::pct);
-            Motor11.spin(vex::directionType::fwd,Controller1.Axis1.value(), vex::velocityUnits::pct);
-            Motor20.spin(vex::directionType::fwd,Controller1.Axis1.value(), vex::velocityUnits::pct);
-        }
-        // Forward/Backwards on axis3
-        if(Controller1.Axis3.value())
-        {
+        Controller1.Screen.print("Hello");
+
            brake = 0;
-           Motor11.spin(directionType::rev,Controller1.Axis3.value(),vex::velocityUnits::pct);
-           Motor10.spin(directionType::fwd,Controller1.Axis3.value(),vex::velocityUnits::pct);  
+           double scale = .5;
+           Motor19.spin(directionType::fwd,Controller1.Axis3.value()*scale,vex::velocityUnits::pct);
+           Motor2.spin(directionType::fwd,Controller1.Axis3.value()*scale, vex::velocityUnits::pct);
+           Motor20.vex::motor::setStopping(coast);
+           Motor3.vex::motor::setStopping(coast);
+           brake = 0;
+           Motor19.vex::motor::setStopping(coast);
+           Motor2.vex::motor::setStopping(coast);
+           Motor20.spin(directionType::fwd,Controller1.Axis2.value()*scale, vex::velocityUnits::pct);
+           Motor3.spin(directionType::fwd,Controller1.Axis2.value()*scale, vex::velocityUnits::pct);
+       
+        if(Controller1.ButtonUp.pressing() && Motor14.position(degrees) < 188){
+          Motor14.spin(directionType::fwd, 20, velocityUnits::pct);
         }
-        // Left/Right on axis 4
-        if(Controller1.Axis4.value())
-        {
-          brake = 0;
-          Motor1.spin(directionType::rev,Controller1.Axis4.value(),vex::velocityUnits::pct);
-          Motor20.spin(directionType::fwd,Controller1.Axis4.value(),vex::velocityUnits::pct);
+        else if(Controller1.ButtonDown.pressing()){
+          Motor14.spin(directionType::rev, 20, velocityUnits::pct);
         }
-        
+        else{
+          Motor14.stop(brakeType::hold);
+        }
+
         if(brake)
         { 
-            Motor1.stop(brakeType::brake);
-            Motor10.stop(brakeType::brake);
-            Motor11.stop(brakeType::brake);
+            Motor2.stop(brakeType::brake);
+            Motor3.stop(brakeType::brake);
+            Motor19.stop(brakeType::brake);
             Motor20.stop(brakeType::brake);
         }
-        // Lift Up 
+
+        
+        //control pickup
         if(Controller1.ButtonR1.pressing())
         {
-           Motor18.spin(directionType::fwd, armSpeedPCT, velocityUnits::pct);
-           Motor19.spin(directionType::fwd, armSpeedPCT, velocityUnits::pct);
+          Motor6.spin(directionType::fwd, 200, velocityUnits::pct);
+          Motor7.spin(directionType::fwd, 200, velocityUnits::pct);
         }
-        // Lift Down 
-        else if (Controller1.ButtonR2.pressing())
+        else if(Controller1.ButtonL1.pressing())
         {
-           Motor18.spin(directionType::rev, armSpeedPCT, velocityUnits::pct);
-           Motor19.spin(directionType::rev, armSpeedPCT, velocityUnits::pct);
+          Motor6.spin(directionType::rev, 200, velocityUnits::pct);
+          Motor7.spin(directionType::rev, 200, velocityUnits::pct);
         }
-        // Add holding pressure
         else
         {
-           Motor18.stop(brakeType::hold);
-           Motor19.stop(brakeType::hold);
+          Motor6.stop(brakeType::brake);
+          Motor7.stop(brakeType::brake);
         }
-        int liftSpeedPCT = 20;
-        // grabber up
-        if(Controller1.ButtonL1.pressing())
-        {
-          Motor6.spin(directionType::rev, liftSpeedPCT, velocityUnits::pct);
-         
-        }
-        // grabber down
-        else if (Controller1.ButtonL2.pressing())
-        {
-          Motor6.spin(directionType::fwd, liftSpeedPCT, velocityUnits::pct);
-          
-        }
-        // holding pressure for grabber
-        else
-        {
-          Motor6.stop(brakeType::hold);
-          
-        }
-    wait(20,msec); // Sleep the task for a short amount of time to 
-                   // prevent wasted resources
+        
     }
 }
 
+
 int main() {
 
-  //Initialize Robot Config.
-  vexcodeInit();
+    while (true) {
+        pre_auton();
 
-  while (true) 
-  {
-    pre_auton();
+        if(!Competition.isCompetitionSwitch()) {
+            usercontrol();
+            
+        }
 
-    if(!Competition.isCompetitionSwitch())
-    {
-      usercontrol();
+        Competition.autonomous( autonomous );
+        Competition.drivercontrol( usercontrol );
+
+        vex::task::sleep(1000);
     }
-  }
-  // Set up callbacks for auton and driver control
-  Competition.autonomous(autonomous);
-  Competition.drivercontrol(usercontrol);
-
-  //Run the pre-auton function
-  
-
-  // prevent infinite
-  while(true) 
-  {
-    wait(100,msec);
-  }
 }
