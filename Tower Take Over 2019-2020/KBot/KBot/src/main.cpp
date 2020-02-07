@@ -627,7 +627,7 @@ void usercontrol(void) {
         Controller1.Screen.print("Tray:%f degrees",mv1);
         Brain.Screen.print("Arm rotation: %f degrees",Motor14.rotation(rotationUnits::deg));*/
 
-           brake = 0;
+           /*brake = 0;
            Motor19.spin(directionType::fwd,Controller1.Axis3.value(),vex::velocityUnits::pct);
            Motor2.spin(directionType::fwd,Controller1.Axis3.value(), vex::velocityUnits::pct);
            Motor20.vex::motor::setStopping(coast);
@@ -636,7 +636,30 @@ void usercontrol(void) {
            Motor19.vex::motor::setStopping(coast);
            Motor2.vex::motor::setStopping(coast);
            Motor20.spin(directionType::fwd,Controller1.Axis2.value(), vex::velocityUnits::pct);
-           Motor3.spin(directionType::fwd,Controller1.Axis2.value(), vex::velocityUnits::pct);
+           Motor3.spin(directionType::fwd,Controller1.Axis2.value(), vex::velocityUnits::pct);*/
+         //Brakes on
+        // Initializing Robot Configuration. DO NOT REMOVE!
+
+           brake = 0;
+           double scale = .5;
+           Motor19.spin(directionType::fwd,Controller1.Axis3.value()*scale,vex::velocityUnits::pct);
+           Motor2.spin(directionType::fwd,Controller1.Axis3.value()*scale, vex::velocityUnits::pct);
+           Motor20.vex::motor::setStopping(coast);
+           Motor3.vex::motor::setStopping(coast);
+           brake = 0;
+           Motor19.vex::motor::setStopping(coast);
+           Motor2.vex::motor::setStopping(coast);
+           Motor20.spin(directionType::fwd,Controller1.Axis2.value()*scale, vex::velocityUnits::pct);
+           Motor3.spin(directionType::fwd,Controller1.Axis2.value()*scale, vex::velocityUnits::pct);
+       
+      
+        if(brake)
+        { 
+            Motor2.stop(brakeType::brake);
+            Motor3.stop(brakeType::brake);
+            Motor19.stop(brakeType::brake);
+            Motor20.stop(brakeType::brake);
+        }
        
         if(Controller1.ButtonR1.pressing() && Motor14.position(degrees) < 380){
           Motor14.spin(directionType::fwd, 160, velocityUnits::pct);
@@ -660,13 +683,13 @@ void usercontrol(void) {
         //control pickup
         if(Controller1.ButtonL1.pressing())
         {
-          Motor6.spin(directionType::fwd, 200, velocityUnits::pct);
-          Motor7.spin(directionType::fwd, 200, velocityUnits::pct);
+          Motor6.spin(directionType::fwd, 70, velocityUnits::pct);
+          Motor7.spin(directionType::fwd, 70, velocityUnits::pct);
         }
         else if(Controller1.ButtonL2.pressing())
         {
-          Motor6.spin(directionType::rev, 200, velocityUnits::pct);
-          Motor7.spin(directionType::rev, 200, velocityUnits::pct);
+          Motor6.spin(directionType::rev, 70, velocityUnits::pct);
+          Motor7.spin(directionType::rev, 70, velocityUnits::pct);
         }
         else
         {
