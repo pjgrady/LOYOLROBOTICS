@@ -206,16 +206,19 @@ void auton3( void ) {
     //Intake velocity set
     Motor6.setVelocity(100, velocityUnits::pct);
 
-    //Drive Rotation
-    Motor11.rotateFor(directionType::fwd, 180, rotationUnits::deg, false);
-    Motor10.rotateFor(directionType::fwd, 180, rotationUnits::deg, false);
-    Motor1.rotateFor(directionType::fwd, 180, rotationUnits::deg, false);
-    Motor20.rotateFor(directionType::fwd, 180, rotationUnits::deg, false);
+    //Drive Rotation 
+    //forward back
+    Motor11.rotateFor(360, rotationUnits::deg, false);
+    Motor10.rotateFor(-360, rotationUnits::deg, false);
+    //left right
+    wait(1000, msec);
+    Motor1.rotateFor(-180, rotationUnits::deg, false);
+    Motor20.rotateFor(180, rotationUnits::deg, false);
     //Lift Rotation
-    Motor18.rotateFor(directionType::fwd, 180, rotationUnits::deg, false);
-    Motor19.rotateFor(directionType::fwd, 180, rotationUnits::deg, false);
+    //Motor18.rotateFor(directionType::fwd, 180, rotationUnits::deg, false);
+    //Motor19.rotateFor(directionType::fwd, 180, rotationUnits::deg, false);
     //Intake Rotation
-    Motor6.rotateFor(directionType::fwd, 180, rotationUnits::deg, false);
+    //Motor6.rotateFor(directionType::fwd, 180, rotationUnits::deg, false);
 
 
 }
@@ -673,7 +676,7 @@ void usercontrol(void) {
            Motor18.stop(brakeType::hold);
            Motor19.stop(brakeType::hold);
         }
-        int liftSpeedPCT = 20;
+        int liftSpeedPCT = 100;
         // grabber up
         if(Controller1.ButtonL1.pressing())
         {
