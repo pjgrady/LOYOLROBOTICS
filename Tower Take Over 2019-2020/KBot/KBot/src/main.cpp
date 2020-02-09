@@ -246,98 +246,13 @@ void screens(int screen) {
             {{200, 240}, {80, 120}, {240, 240}},    //3: Top Right Blue
             {{200, 240}, {160, 200}, {240, 240}}    //4: Bottom Right Blue
         };
-        
-        int platforms[3][3][2] = {
-            {{65, 105}, {120, 160}, {0, 0}}, //red
-            {{135, 175}, {120, 160}, {240, 240}}, //blue
-            {{100, 140}, {120, 160}, {60, 60}} //yellow
-        };
-        
-        int caps[8][2][2] = {
-            {{60, 60}, {240, 240}},
-            {{100, 100}, {0, 0}},
-            {{100, 180}, {0, 0}},
-            {{100, 220}, {240, 240}},
-            {{180, 60}, {0, 0}},
-            {{140, 100}, {240, 240}},
-            {{140, 180}, {240, 240}},
-            {{140, 220}, {0, 0}}
-        };
-        
-        int balls[16][2][2] = {
-            {{65, 120}, {60, 60}},
-            {{65, 160}, {60, 60}},
-            {{175, 120}, {60, 60}},
-            {{175, 160}, {60, 60}},
-            {{100, 100}, {60, 60}},
-            {{140, 100}, {60, 60}},
-            {{100, 180}, {60, 60}},
-            {{140, 180}, {60, 60}},
-            {{55, 55}, {60, 60}},
-            {{65, 65}, {60, 60}},
-            {{175, 65}, {60, 60}},
-            {{185, 55}, {60, 60}},
-            {{100, 214}, {60, 60}},
-            {{100, 226}, {60, 60}},
-            {{140, 214}, {60, 60}},
-            {{140, 226}, {60, 60}}
-        };
-        
-        for(int i = 0; i < 8; i++) {
-            Brain.Screen.setPenColor(caps[i][1][0]);
-            Brain.Screen.drawCircle(caps[i][0][0]+x_displacement, caps[i][0][1]+y_displacement, capsRadiusPX, caps[i][1][1]);
-        }
-        
+    
         for(int i = 0; i < 4; i++) {
             int length = buttons[i][0][1] - buttons[i][0][0];
             int width = buttons[i][1][1] - buttons[i][1][0];
 
             Brain.Screen.setPenColor(buttons[i][2][0]);
             Brain.Screen.drawRectangle(buttons[i][0][0]+x_displacement, buttons[i][1][0]+y_displacement, width, length, buttons[i][2][1]);
-        }
-        
-        //Expansion Zone
-        Brain.Screen.setPenColor(vex::color::white);
-        Brain.Screen.setPenWidth(2);
-        Brain.Screen.drawLine(0+x_displacement, 120+y_displacement, 40+x_displacement, 120+y_displacement);
-        Brain.Screen.drawLine(200+x_displacement, 120+y_displacement, 240+x_displacement, 120+y_displacement);
-        Brain.Screen.drawLine(40+x_displacement, 120+y_displacement, 40+x_displacement, 200+y_displacement);
-        Brain.Screen.drawLine(200+x_displacement, 120+y_displacement, 200+x_displacement, 200+y_displacement);
-        
-        Brain.Screen.drawLine(40+x_displacement, 200+y_displacement, 200+x_displacement, 200+y_displacement);
-        Brain.Screen.drawLine(120+x_displacement, 240+y_displacement, 120+x_displacement, 0+y_displacement);
-        
-        //Flag Pole
-        Brain.Screen.setPenColor(vex::color::black);
-        Brain.Screen.setPenWidth(7);
-        Brain.Screen.drawLine(0+x_displacement, 0+y_displacement, 0+x_displacement, 40+y_displacement);
-        Brain.Screen.drawLine(0+x_displacement, 0+y_displacement, 240+x_displacement, 0+y_displacement);
-        Brain.Screen.drawLine(240+x_displacement, 0+y_displacement, 240+x_displacement, 40+y_displacement);
-        Brain.Screen.drawLine(40+x_displacement, 0+y_displacement, 40+x_displacement, 20+y_displacement);
-        Brain.Screen.drawLine(120+x_displacement, 0+y_displacement, 120+x_displacement, 20+y_displacement);
-        Brain.Screen.drawLine(200+x_displacement, 0+y_displacement, 200+x_displacement, 20+y_displacement);
-        
-        //Flags
-        Brain.Screen.setPenWidth(3);
-        Brain.Screen.setPenColor(vex::color::red);
-        Brain.Screen.drawLine(120+x_displacement, 20+y_displacement, 134+x_displacement, 6+y_displacement);
-        Brain.Screen.drawLine(200+x_displacement, 20+y_displacement, 220+x_displacement, 20+y_displacement);
-        
-        Brain.Screen.setPenColor(vex::color::blue);
-        Brain.Screen.drawLine(40+x_displacement, 20+y_displacement, 20+x_displacement, 20+y_displacement);
-        Brain.Screen.drawLine(120+x_displacement, 20+y_displacement, 106+x_displacement, 6+y_displacement);
-        
-        for(int i = 0; i < 3; i++) {
-            int length = platforms[i][0][1] - platforms[i][0][0];
-            int width = platforms[i][1][1] - platforms[i][1][0];
-
-            Brain.Screen.setPenColor(platforms[i][2][0]);
-            Brain.Screen.drawRectangle(platforms[i][0][0]+x_displacement, platforms[i][1][0]+y_displacement, width, length, platforms[i][2][1]);
-        }
-        
-        for(int i = 0; i < 16; i++) {
-            Brain.Screen.setPenColor(balls[i][1][0]);
-            Brain.Screen.drawCircle(balls[i][0][0]+x_displacement, balls[i][0][1]+y_displacement, ballsRadiusPX, balls[i][1][1]);
         }
         
         button_pressed = 0;
