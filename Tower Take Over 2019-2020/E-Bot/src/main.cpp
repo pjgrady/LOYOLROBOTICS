@@ -2,75 +2,15 @@
 // Robot Configuration:
 // [Name]               [Type]        [Port(s)]
 // Controller1          controller                    
-// Motor1               motor         1               
-// Motor10              motor         10              
-// Motor11              motor         11              
-// Motor20              motor         20              
-// Motor18              motor         18              
-// Motor19              motor         19              
-// Motor6               motor         6               
+// BackDrive            motor         1               
+// LeftDrive            motor         10              
+// RightDrive           motor         11              
+// FrontDrive           motor         20              
+// TopLift              motor         18              
+// BottomLIft           motor         19              
+// ClawMotor            motor         6               
 // ---- END VEXCODE CONFIGURED DEVICES ----
-// ---- START VEXCODE CONFIGURED DEVICES ----
-// Robot Configuration:
-// [Name]               [Type]        [Port(s)]
-// Controller1          controller                    
-// Motor1               motor         1               
-// Motor10              motor         10              
-// Motor11              motor         11              
-// Motor20              motor         20              
-// Motor18              motor         18              
-// Motor19              motor         19              
-// Motor6               motor         6               
-// ---- END VEXCODE CONFIGURED DEVICES ----
-// ---- START VEXCODE CONFIGURED DEVICES ----
-// Robot Configuration:
-// [Name]               [Type]        [Port(s)]
-// Controller1          controller                    
-// Motor1               motor         1               
-// Motor10              motor         10              
-// Motor11              motor         11              
-// Motor20              motor         20              
-// Motor18              motor         18              
-// Motor19              motor         19              
-// Motor6               motor         6               
-// ---- END VEXCODE CONFIGURED DEVICES ----
-// ---- START VEXCODE CONFIGURED DEVICES ----
-// Robot Configuration:
-// [Name]               [Type]        [Port(s)]
-// Controller1          controller                    
-// Motor1               motor         1               
-// Motor10              motor         10              
-// Motor11              motor         11              
-// Motor20              motor         20              
-// Motor18              motor         18              
-// Motor19              motor         19              
-// Motor6               motor         6               
-// ---- END VEXCODE CONFIGURED DEVICES ----
-// ---- START VEXCODE CONFIGURED DEVICES ----
-// Robot Configuration:
-// [Name]               [Type]        [Port(s)]
-// Controller1          controller                    
-// Motor1               motor         1               
-// Motor10              motor         10              
-// Motor11              motor         11              
-// Motor20              motor         20              
-// Motor18              motor         18              
-// Motor19              motor         19              
-// Motor6               motor         6               
-// Motor7               motor         7               
-// ---- END VEXCODE CONFIGURED DEVICES ----
-// ---- START VEXCODE CONFIGURED DEVICES ----
-// Robot Configuration:
-// [Name]               [Type]        [Port(s)]
-// Controller1          controller                    
-// Motor1               motor         1               
-// Motor10              motor         10              
-// Motor11              motor         11              
-// Motor20              motor         20              
-// Motor18              motor         18              
-// Motor19              motor         19              
-// Motor6               motor         6               
-// ---- END VEXCODE CONFIGURED DEVICES ----
+
 /*----------------------------------------------------------------------------*/
 /*                                                                            */
 /*    Module:       main.cpp                                                  */
@@ -80,17 +20,7 @@
 /*                                                                            */
 /*----------------------------------------------------------------------------*/
 
-// ---- START VEXCODE CONFIGURED DEVICES ----
-// Robot Configuration:
-// [Name]               [Type]        [Port(s)]
-// Controller1          controller                    
-// Motor1               motor         1               
-// Motor10              motor         10              
-// Motor11              motor         11              
-// Motor20              motor         20              
-// Motor18              motor         18              
-// Motor19              motor         19              
-// ---- END VEXCODE CONFIGURED DEVICES ----
+
 
 //    F-m 
 //       
@@ -142,14 +72,21 @@ void auton1( void ) {
     Brain.Screen.setPenColor(vex::color::black);
     Brain.Screen.setCursor(1, 1);
     Brain.Screen.print("Auton 1.");
-    Motor11.setVelocity(200, velocityUnits::pct);
-    Motor10.setVelocity(200, velocityUnits::pct);
+    // Initialize speed for motors
+    RightDrive.setVelocity(200, velocityUnits::pct);
+    LeftDrive.setVelocity(200, velocityUnits::pct);
+    TopLift.setVelocity(80, velocityUnits::pct);
+    BottomLIft.setVelocity(80, velocityUnits::pct);
     
 //START AUTO CODE
+  //Lift up to clear tire
+  TopLift.rotateFor(45, rotationUnits::deg, false);
+  BottomLIft.rotateFor(45, rotationUnits::deg, false);
+  //wait lift then drive
+  wait(120,msec);
   //Drive forward and reach 720 degrees at full power forward
-  Motor11.rotateFor(-720, rotationUnits::deg, false);
-  Motor10.rotateFor(720, rotationUnits::deg, false);
- 
+  RightDrive.rotateFor(-720, rotationUnits::deg, false);
+  LeftDrive.rotateFor(720, rotationUnits::deg, false);
 
 
 }
@@ -163,22 +100,22 @@ void auton2( void ) {
     Brain.Screen.print("Auton 2.");
 
     //
-    Motor18.setVelocity(100, velocityUnits::pct);
-    Motor19.setVelocity(100, velocityUnits::pct);
-    Motor6.setVelocity(200, velocityUnits::pct);
+    TopLift.setVelocity(100, velocityUnits::pct);
+    BottomLIft.setVelocity(100, velocityUnits::pct);
+    ClawMotor.setVelocity(200, velocityUnits::pct);
     //
-    Motor18.rotateFor(directionType::fwd,360, rotationUnits::deg, false);
-    Motor19.rotateFor(directionType::fwd,360, rotationUnits::deg, false);
+    TopLift.rotateFor(directionType::fwd,360, rotationUnits::deg, false);
+    BottomLIft.rotateFor(directionType::fwd,360, rotationUnits::deg, false);
 
     wait(1500,msec);
     int counter = 0;
 
     while (counter != 100){
-      Motor6.rotateFor(directionType::fwd,270, rotationUnits::deg, false);
+      ClawMotor.rotateFor(directionType::fwd,270, rotationUnits::deg, false);
       wait(1000,msec);
       int count = 0;
       while (count!= 1){
-        Motor6.rotateFor(directionType::rev,270, rotationUnits::deg, false);  
+        ClawMotor.rotateFor(directionType::rev,270, rotationUnits::deg, false);  
         wait(1000, msec);
         count++;
       }
@@ -196,24 +133,24 @@ void auton3( void ) {
     Brain.Screen.print("Auton 3.");
 
     //Drive velocity set
-    Motor11.setVelocity(100, velocityUnits::pct);
-    Motor10.setVelocity(100, velocityUnits::pct);
-    Motor1.setVelocity(100, velocityUnits::pct);
-    Motor20.setVelocity(100, velocityUnits::pct);
+    RightDrive.setVelocity(100, velocityUnits::pct);
+    LeftDrive.setVelocity(100, velocityUnits::pct);
+    BackDrive.setVelocity(100, velocityUnits::pct);
+    FrontDrive.setVelocity(100, velocityUnits::pct);
     //Lift velocity set
-    Motor18.setVelocity(100, velocityUnits::pct);
-    Motor19.setVelocity(100, velocityUnits::pct);
+    TopLift.setVelocity(100, velocityUnits::pct);
+    BottomLIft.setVelocity(100, velocityUnits::pct);
     //Intake velocity set
-    Motor6.setVelocity(100, velocityUnits::pct);
+    ClawMotor.setVelocity(100, velocityUnits::pct);
 
     //Drive Rotation 
     //forward back
-    Motor11.rotateFor(360, rotationUnits::deg, false);
-    Motor10.rotateFor(-360, rotationUnits::deg, false);
+    RightDrive.rotateFor(360, rotationUnits::deg, false);
+    LeftDrive.rotateFor(-360, rotationUnits::deg, false);
     //left right
     wait(1000, msec);
-    Motor1.rotateFor(-180, rotationUnits::deg, false);
-    Motor20.rotateFor(180, rotationUnits::deg, false);
+    BackDrive.rotateFor(-180, rotationUnits::deg, false);
+    FrontDrive.rotateFor(180, rotationUnits::deg, false);
     //Lift Rotation
     //Motor18.rotateFor(directionType::fwd, 180, rotationUnits::deg, false);
     //Motor19.rotateFor(directionType::fwd, 180, rotationUnits::deg, false);
@@ -574,6 +511,7 @@ void screens(int screen) {
 
 void pre_auton( void ) {
   screens(1);
+
   vexcodeInit();
 };
 
@@ -614,14 +552,16 @@ void usercontrol(void) {
   int armSpeedPCT = 70;
     
   //Spin at half speed
-  Motor1.setVelocity(50, vex::velocityUnits::pct);
-  Motor10.setVelocity(50,vex::velocityUnits::pct);
-  Motor11.setVelocity(50,vex::velocityUnits::pct);
-  Motor20.setVelocity(50,vex::velocityUnits::pct); 
+  BackDrive.setVelocity(50, vex::velocityUnits::pct);
+  LeftDrive.setVelocity(50,vex::velocityUnits::pct);
+  RightDrive.setVelocity(50,vex::velocityUnits::pct);
+  FrontDrive.setVelocity(50,vex::velocityUnits::pct); 
 
   while(1)
     {
-      
+        // scaling down drive speed for stability
+        double scale = .75;
+
         int brake = 1; //Brakes on
         // Initializing Robot Configuration. DO NOT REMOVE!
         vexcodeInit();
@@ -631,68 +571,68 @@ void usercontrol(void) {
         if(Controller1.Axis1.value())
         {
             brake = 0;
-            Motor1.spin(vex::directionType::fwd, Controller1.Axis1.value(), vex::velocityUnits::pct);
-            Motor10.spin(vex::directionType::fwd,Controller1.Axis1.value(), vex::velocityUnits::pct);
-            Motor11.spin(vex::directionType::fwd,Controller1.Axis1.value(), vex::velocityUnits::pct);
-            Motor20.spin(vex::directionType::fwd,Controller1.Axis1.value(), vex::velocityUnits::pct);
+            BackDrive.spin(vex::directionType::fwd, Controller1.Axis1.value() * scale, vex::velocityUnits::pct);
+            LeftDrive.spin(vex::directionType::fwd,Controller1.Axis1.value() * scale, vex::velocityUnits::pct);
+            RightDrive.spin(vex::directionType::fwd,Controller1.Axis1.value() * scale, vex::velocityUnits::pct);
+            FrontDrive.spin(vex::directionType::fwd,Controller1.Axis1.value() * scale, vex::velocityUnits::pct);
         }
         // Forward/Backwards on axis3
         if(Controller1.Axis3.value())
         {
            brake = 0;
-           Motor11.spin(directionType::rev,Controller1.Axis3.value(),vex::velocityUnits::pct);
-           Motor10.spin(directionType::fwd,Controller1.Axis3.value(),vex::velocityUnits::pct);  
+           RightDrive.spin(directionType::rev,Controller1.Axis3.value() * scale,vex::velocityUnits::pct);
+           LeftDrive.spin(directionType::fwd,Controller1.Axis3.value() * scale,vex::velocityUnits::pct);  
         }
         // Left/Right on axis 4
         if(Controller1.Axis4.value())
         {
           brake = 0;
-          Motor1.spin(directionType::rev,Controller1.Axis4.value(),vex::velocityUnits::pct);
-          Motor20.spin(directionType::fwd,Controller1.Axis4.value(),vex::velocityUnits::pct);
+          BackDrive.spin(directionType::rev,Controller1.Axis4.value() * scale,vex::velocityUnits::pct);
+          FrontDrive.spin(directionType::fwd,Controller1.Axis4.value() * scale,vex::velocityUnits::pct);
         }
         
         if(brake)
         { 
-            Motor1.stop(brakeType::brake);
-            Motor10.stop(brakeType::brake);
-            Motor11.stop(brakeType::brake);
-            Motor20.stop(brakeType::brake);
+            BackDrive.stop(brakeType::brake);
+            LeftDrive.stop(brakeType::brake);
+            RightDrive.stop(brakeType::brake);
+           FrontDrive.stop(brakeType::brake);
         }
         // Lift Up 
         if(Controller1.ButtonR1.pressing())
         {
-           Motor18.spin(directionType::fwd, armSpeedPCT, velocityUnits::pct);
-           Motor19.spin(directionType::fwd, armSpeedPCT, velocityUnits::pct);
+           TopLift.spin(directionType::fwd, armSpeedPCT, velocityUnits::pct);
+           BottomLIft.spin(directionType::fwd, armSpeedPCT, velocityUnits::pct);
         }
         // Lift Down 
         else if (Controller1.ButtonR2.pressing())
         {
-           Motor18.spin(directionType::rev, armSpeedPCT, velocityUnits::pct);
-           Motor19.spin(directionType::rev, armSpeedPCT, velocityUnits::pct);
+           TopLift.spin(directionType::rev, armSpeedPCT, velocityUnits::pct);
+           BottomLIft.spin(directionType::rev, armSpeedPCT, velocityUnits::pct);
         }
         // Add holding pressure
         else
         {
-           Motor18.stop(brakeType::hold);
-           Motor19.stop(brakeType::hold);
+           TopLift.stop(brakeType::hold);
+           BottomLIft.stop(brakeType::hold);
         }
         int liftSpeedPCT = 100;
         // grabber up
-        if(Controller1.ButtonL1.pressing())
+        if(Controller1.ButtonL2.pressing())
         {
-          Motor6.spin(directionType::rev, liftSpeedPCT, velocityUnits::pct);
+          ClawMotor.spin(directionType::rev, liftSpeedPCT, velocityUnits::pct);
          
         }
         // grabber down
-        else if (Controller1.ButtonL2.pressing())
+        else if (Controller1.ButtonL1.pressing())
         {
-          Motor6.spin(directionType::fwd, liftSpeedPCT, velocityUnits::pct);
+          ClawMotor.spin(directionType::fwd, liftSpeedPCT, velocityUnits::pct);
           
         }
         // holding pressure for grabber
         else
         {
-          Motor6.stop(brakeType::hold);
+          ClawMotor.stop(brakeType::hold);
           
         }
     wait(20,msec); // Sleep the task for a short amount of time to 
