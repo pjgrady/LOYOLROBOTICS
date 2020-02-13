@@ -14,7 +14,7 @@ motor LeftDrive = motor(PORT10, ratio18_1, false);
 motor RightDrive = motor(PORT11, ratio18_1, false);
 motor FrontDrive = motor(PORT20, ratio18_1, false);
 motor TopLift = motor(PORT18, ratio36_1, true);
-motor BottomLIft = motor(PORT19, ratio36_1, true);
+motor BottomLift = motor(PORT19, ratio36_1, true);
 motor ClawMotor = motor(PORT6, ratio18_1, true);
 
 // VEXcode generated functions

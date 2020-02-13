@@ -7,6 +7,18 @@
 // RightDrive           motor         11              
 // FrontDrive           motor         20              
 // TopLift              motor         18              
+// BottomLift           motor         19              
+// ClawMotor            motor         6               
+// ---- END VEXCODE CONFIGURED DEVICES ----
+// ---- START VEXCODE CONFIGURED DEVICES ----
+// Robot Configuration:
+// [Name]               [Type]        [Port(s)]
+// Controller1          controller                    
+// BackDrive            motor         1               
+// LeftDrive            motor         10              
+// RightDrive           motor         11              
+// FrontDrive           motor         20              
+// TopLift              motor         18              
 // BottomLIft           motor         19              
 // ClawMotor            motor         6               
 // ---- END VEXCODE CONFIGURED DEVICES ----
@@ -76,12 +88,12 @@ void auton1( void ) {
     RightDrive.setVelocity(200, velocityUnits::pct);
     LeftDrive.setVelocity(200, velocityUnits::pct);
     TopLift.setVelocity(80, velocityUnits::pct);
-    BottomLIft.setVelocity(80, velocityUnits::pct);
+    BottomLift.setVelocity(80, velocityUnits::pct);
     
 //START AUTO CODE
   //Lift up to clear tire
   TopLift.rotateFor(45, rotationUnits::deg, false);
-  BottomLIft.rotateFor(45, rotationUnits::deg, false);
+  BottomLift.rotateFor(45, rotationUnits::deg, false);
   //wait lift then drive
   wait(120,msec);
   //Drive forward and reach 720 degrees at full power forward
@@ -101,11 +113,11 @@ void auton2( void ) {
 
     //
     TopLift.setVelocity(100, velocityUnits::pct);
-    BottomLIft.setVelocity(100, velocityUnits::pct);
+    BottomLift.setVelocity(100, velocityUnits::pct);
     ClawMotor.setVelocity(200, velocityUnits::pct);
     //
     TopLift.rotateFor(directionType::fwd,360, rotationUnits::deg, false);
-    BottomLIft.rotateFor(directionType::fwd,360, rotationUnits::deg, false);
+    BottomLift.rotateFor(directionType::fwd,360, rotationUnits::deg, false);
 
     wait(1500,msec);
     int counter = 0;
@@ -133,30 +145,34 @@ void auton3( void ) {
     Brain.Screen.print("Auton 3.");
 
     //Drive velocity set
-    RightDrive.setVelocity(100, velocityUnits::pct);
-    LeftDrive.setVelocity(100, velocityUnits::pct);
-    BackDrive.setVelocity(100, velocityUnits::pct);
-    FrontDrive.setVelocity(100, velocityUnits::pct);
+    RightDrive.setVelocity(50, velocityUnits::pct);
+    LeftDrive.setVelocity(50, velocityUnits::pct);
+    BackDrive.setVelocity(50, velocityUnits::pct);
+    FrontDrive.setVelocity(50, velocityUnits::pct);
     //Lift velocity set
     TopLift.setVelocity(100, velocityUnits::pct);
-    BottomLIft.setVelocity(100, velocityUnits::pct);
+    BottomLift.setVelocity(100, velocityUnits::pct);
     //Intake velocity set
     ClawMotor.setVelocity(100, velocityUnits::pct);
+    //Lift up to clear tire
+    TopLift.rotateFor(45, rotationUnits::deg, false);
+    BottomLift.rotateFor(45, rotationUnits::deg, false);
+    //wait lift then drive
+    wait(120,msec);
 
     //Drive Rotation 
     //forward back
-    RightDrive.rotateFor(360, rotationUnits::deg, false);
-    LeftDrive.rotateFor(-360, rotationUnits::deg, false);
+    RightDrive.rotateFor(-160, rotationUnits::deg, false);
+    LeftDrive.rotateFor(160, rotationUnits::deg, false);
     //left right
     wait(1000, msec);
-    BackDrive.rotateFor(-180, rotationUnits::deg, false);
-    FrontDrive.rotateFor(180, rotationUnits::deg, false);
-    //Lift Rotation
-    //Motor18.rotateFor(directionType::fwd, 180, rotationUnits::deg, false);
-    //Motor19.rotateFor(directionType::fwd, 180, rotationUnits::deg, false);
-    //Intake Rotation
-    //Motor6.rotateFor(directionType::fwd, 180, rotationUnits::deg, false);
-
+    BackDrive.rotateFor(-500, rotationUnits::deg, false);
+    FrontDrive.rotateFor(-500, rotationUnits::deg, false);
+    RightDrive.rotateFor(-500, rotationUnits::deg, false);
+    LeftDrive.rotateFor(500, rotationUnits::deg, false);
+    wait(1000,msec);
+    TopLift.rotateFor(400, rotationUnits::deg, false);
+    BottomLift.rotateFor(400, rotationUnits::deg, false);
 
 }
 
@@ -561,7 +577,7 @@ void usercontrol(void) {
     {
         // scaling down drive speed for stability
         double scale = .75;
-
+        
         int brake = 1; //Brakes on
         // Initializing Robot Configuration. DO NOT REMOVE!
         vexcodeInit();
@@ -575,6 +591,7 @@ void usercontrol(void) {
             LeftDrive.spin(vex::directionType::fwd,Controller1.Axis1.value() * scale, vex::velocityUnits::pct);
             RightDrive.spin(vex::directionType::fwd,Controller1.Axis1.value() * scale, vex::velocityUnits::pct);
             FrontDrive.spin(vex::directionType::fwd,Controller1.Axis1.value() * scale, vex::velocityUnits::pct);
+            wait(100, msec);
         }
         // Forward/Backwards on axis3
         if(Controller1.Axis3.value())
@@ -602,31 +619,31 @@ void usercontrol(void) {
         if(Controller1.ButtonR1.pressing())
         {
            TopLift.spin(directionType::fwd, armSpeedPCT, velocityUnits::pct);
-           BottomLIft.spin(directionType::fwd, armSpeedPCT, velocityUnits::pct);
+           BottomLift.spin(directionType::fwd, armSpeedPCT, velocityUnits::pct);
         }
         // Lift Down 
         else if (Controller1.ButtonR2.pressing())
         {
            TopLift.spin(directionType::rev, armSpeedPCT, velocityUnits::pct);
-           BottomLIft.spin(directionType::rev, armSpeedPCT, velocityUnits::pct);
+           BottomLift.spin(directionType::rev, armSpeedPCT, velocityUnits::pct);
         }
         // Add holding pressure
         else
         {
            TopLift.stop(brakeType::hold);
-           BottomLIft.stop(brakeType::hold);
+           BottomLift.stop(brakeType::hold);
         }
         int liftSpeedPCT = 100;
-        // grabber up
-        if(Controller1.ButtonL2.pressing())
-        {
-          ClawMotor.spin(directionType::rev, liftSpeedPCT, velocityUnits::pct);
-         
-        }
-        // grabber down
-        else if (Controller1.ButtonL1.pressing())
+        // 
+        if(Controller1.ButtonL2.pressing() && ClawMotor.position(degrees) > -100)
         {
           ClawMotor.spin(directionType::fwd, liftSpeedPCT, velocityUnits::pct);
+         
+        }
+        // 
+        else if (Controller1.ButtonL1.pressing())
+        {
+          ClawMotor.spin(directionType::rev, liftSpeedPCT, velocityUnits::pct);
           
         }
         // holding pressure for grabber

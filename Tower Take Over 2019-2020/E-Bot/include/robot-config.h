@@ -9,7 +9,7 @@ extern motor LeftDrive;
 extern motor RightDrive;
 extern motor FrontDrive;
 extern motor TopLift;
-extern motor BottomLIft;
+extern motor BottomLift;
 extern motor ClawMotor;
 
 /**
