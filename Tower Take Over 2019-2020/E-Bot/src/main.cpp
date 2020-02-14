@@ -154,26 +154,36 @@ void auton3( void ) {
     BottomLift.setVelocity(100, velocityUnits::pct);
     //Intake velocity set
     ClawMotor.setVelocity(100, velocityUnits::pct);
+
+
     //Lift up to clear tire
-    TopLift.rotateFor(45, rotationUnits::deg, false);
-    BottomLift.rotateFor(45, rotationUnits::deg, false);
+    TopLift.rotateFor(150, rotationUnits::deg, false);
+    BottomLift.rotateFor(150, rotationUnits::deg, false);
     //wait lift then drive
     wait(120,msec);
-
     //Drive Rotation 
     //forward back
-    RightDrive.rotateFor(-160, rotationUnits::deg, false);
-    LeftDrive.rotateFor(160, rotationUnits::deg, false);
-    //left right
-    wait(1000, msec);
-    BackDrive.rotateFor(-500, rotationUnits::deg, false);
-    FrontDrive.rotateFor(-500, rotationUnits::deg, false);
-    RightDrive.rotateFor(-500, rotationUnits::deg, false);
-    LeftDrive.rotateFor(500, rotationUnits::deg, false);
-    wait(1000,msec);
-    TopLift.rotateFor(400, rotationUnits::deg, false);
-    BottomLift.rotateFor(400, rotationUnits::deg, false);
+    RightDrive.rotateFor(-950, rotationUnits::deg, false);
+    LeftDrive.rotateFor(950, rotationUnits::deg, false);
 
+    wait(1500, msec);
+    RightDrive.rotateFor(100, rotationUnits::deg, false);
+    LeftDrive.rotateFor(-100, rotationUnits::deg, false);
+
+    wait(1500,msec);
+    FrontDrive.rotateFor(-90, rotationUnits::deg, false);
+    BackDrive.rotateFor(90, rotationUnits::deg, false);
+
+  
+    wait(1500, msec);
+    BackDrive.rotateFor(-280, rotationUnits::deg, false);
+    FrontDrive.rotateFor(-280, rotationUnits::deg, false);
+    RightDrive.rotateFor(-280, rotationUnits::deg, false);
+    LeftDrive.rotateFor(-280, rotationUnits::deg, false);
+   
+    wait(1500, msec);
+    RightDrive.rotateFor(-420,rotationUnits::deg, false);
+    LeftDrive.rotateFor(420,rotationUnits::deg, false);
 }
 
 void auton4( void ) {

@@ -16,6 +16,8 @@ motor Motor20 = motor(PORT20, ratio18_1, true);
 motor Motor14 = motor(PORT14, ratio18_1, false);
 motor Motor6 = motor(PORT6, ratio18_1, true);
 motor Motor7 = motor(PORT7, ratio18_1, false);
+motor Motor9 = motor(PORT9, ratio18_1, false);
+motor Motor10 = motor(PORT10, ratio18_1, false);
 
 // VEXcode generated functions
 // define variable for remote controller enable/disable

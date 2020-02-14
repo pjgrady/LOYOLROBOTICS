@@ -9,6 +9,33 @@
 // Motor14              motor         14              
 // Motor6               motor         6               
 // Motor7               motor         7               
+// Motor9               motor         9               
+// Motor10              motor         10              
+// ---- END VEXCODE CONFIGURED DEVICES ----
+// ---- START VEXCODE CONFIGURED DEVICES ----
+// Robot Configuration:
+// [Name]               [Type]        [Port(s)]
+// Controller1          controller                    
+// Motor3               motor         3               
+// Motor2               motor         2               
+// Motor19              motor         19              
+// Motor20              motor         20              
+// Motor14              motor         14              
+// Motor6               motor         6               
+// Motor7               motor         7               
+// Motor9               motor         9               
+// ---- END VEXCODE CONFIGURED DEVICES ----
+// ---- START VEXCODE CONFIGURED DEVICES ----
+// Robot Configuration:
+// [Name]               [Type]        [Port(s)]
+// Controller1          controller                    
+// Motor3               motor         3               
+// Motor2               motor         2               
+// Motor19              motor         19              
+// Motor20              motor         20              
+// Motor14              motor         14              
+// Motor6               motor         6               
+// Motor7               motor         7               
 // ---- END VEXCODE CONFIGURED DEVICES ----
 // ---- START VEXCODE CONFIGURED DEVICES ----
 // Robot Configuration:
@@ -575,12 +602,14 @@ void usercontrol(void) {
             Motor19.stop(brakeType::brake);
             Motor20.stop(brakeType::brake);
         }
+
+        //double slowDown = .5;
        
-        if(Controller1.ButtonR1.pressing() && Motor14.position(degrees) < 380){
-          Motor14.spin(directionType::fwd, 160, velocityUnits::pct);
+        if(Controller1.ButtonR1.pressing() && Motor14.position(degrees) < 760){
+          Motor14.spin(directionType::fwd, 50, velocityUnits::pct);
         }
-        else if(Controller1.ButtonR2.pressing()){
-          Motor14.spin(directionType::rev, 160, velocityUnits::pct);
+        else if(Controller1.ButtonR2.pressing() && Motor14.position(degrees) > 125){
+          Motor14.spin(directionType::rev, 50, velocityUnits::pct);
         }
         else{
           Motor14.stop(brakeType::hold);
@@ -611,7 +640,21 @@ void usercontrol(void) {
           Motor6.stop(brakeType::brake);
           Motor7.stop(brakeType::brake);
         }
-        
+        if(Controller1.ButtonDown.pressing())
+        {
+          Motor9.spin(directionType::rev, 50, velocityUnits::pct);
+          Motor10.spin(directionType::fwd,50, velocityUnits::pct);
+        }
+        else if(Controller1.ButtonUp.pressing())
+        {
+          Motor9.spin(directionType::fwd, 50, velocityUnits::pct);
+          Motor10.spin(directionType::rev,50, velocityUnits::pct);
+        }
+        else
+        {
+          Motor9.stop(brakeType::brake);
+          Motor10.stop(brakeType::brake);
+        }
     }
 }
 
