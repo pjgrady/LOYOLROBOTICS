@@ -118,6 +118,34 @@ int auton = 0;
 int promise = 6;
 int force = 0;
 
+
+
+
+
+
+
+
+void fast_move_forward(int howFar){
+  Motor19.setVelocity(200, velocityUnits::pct);
+    Motor20.setVelocity(200, velocityUnits::pct);
+    Motor2.setVelocity(200, velocityUnits::pct);
+    Motor3.setVelocity(200, velocityUnits::pct);
+
+  Motor19.rotateFor(howFar, rotationUnits::deg, false);
+  Motor20.rotateFor(howFar, rotationUnits::deg, false);
+  Motor2.rotateFor(howFar, rotationUnits::deg, false); 
+  Motor3.rotateFor(howFar, rotationUnits::deg, false);
+}
+
+
+void move_to_cube(){
+
+}
+
+
+
+
+
 void auton0( void ) {
     Brain.Screen.setFillColor(vex::color::white);
     Brain.Screen.clearScreen(vex::color::white);
@@ -134,17 +162,10 @@ void auton1( void ) {
     Brain.Screen.setPenColor(vex::color::black);
     Brain.Screen.setCursor(1, 1);
     Brain.Screen.print("Running Auto 1");
-    Motor19.setVelocity(200, velocityUnits::pct);
-    Motor20.setVelocity(200, velocityUnits::pct);
-    Motor2.setVelocity(200, velocityUnits::pct);
-    Motor3.setVelocity(200, velocityUnits::pct);
 
-//START AUTO CODE
-  //Drive forward and reach 720 degrees at full power forward
-  Motor19.rotateFor(720, rotationUnits::deg, false);
-  Motor20.rotateFor(720, rotationUnits::deg, false);
-  Motor2.rotateFor(720, rotationUnits::deg, false); 
-  Motor3.rotateFor(720, rotationUnits::deg, false);
+    
+  //Drive forward and reach 360 degrees at full power forward
+  fast_move_forward(360);
 
 }
 
@@ -155,6 +176,27 @@ void auton2( void ) {
     Brain.Screen.setPenColor(vex::color::black);
     Brain.Screen.setCursor(1, 1);
     Brain.Screen.print("Lol.");
+
+
+    //move forward to the cube
+move_to_cube();
+  
+    //intake cube
+
+  
+    //back away from spot
+
+  
+    //drive towards stacking square goal
+
+    
+    //raise the intake sled
+
+    
+    //outtake cube
+
+
+    //back away
 }
 
 void auton3( void ) {
