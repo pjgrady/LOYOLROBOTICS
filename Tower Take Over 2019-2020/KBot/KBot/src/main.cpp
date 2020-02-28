@@ -120,7 +120,12 @@ int force = 0;
 
 
 
-
+void init(){
+  Motor19.vex::motor::setStopping(brake);
+  Motor20.vex::motor::setStopping(brake);
+  Motor2.vex::motor::setStopping(brake);
+  Motor3.vex::motor::setStopping(brake);
+}
 
 
 
@@ -137,9 +142,17 @@ void fast_move_forward(int howFar){
   Motor3.rotateFor(howFar, rotationUnits::deg, false);
 }
 
+void stop_all_motors(){
+  Motor19.stop(brakeType::brake);
+  Motor20.stop(brakeType::brake);
+  Motor2.stop(brakeType::brake);
+  Motor3.stop(brakeType::brake);
+}
 
 void move_to_cube(){
-
+fast_move_forward(1000);
+//impliment vision sensor
+stop_all_motors();  ///may not be neccessary because moving degrees may already stop the motors 
 }
 
 
@@ -176,10 +189,10 @@ void auton2( void ) {
     Brain.Screen.setPenColor(vex::color::black);
     Brain.Screen.setCursor(1, 1);
     Brain.Screen.print("Lol.");
-
-
+  //initializes properties of motors
+  init();
     //move forward to the cube
-move_to_cube();
+  move_to_cube();
   
     //intake cube
 
