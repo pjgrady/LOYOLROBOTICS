@@ -9,12 +9,12 @@ brain  Brain;
 
 // VEXcode device constructors
 controller Controller1 = controller(primary);
-motor BackDrive = motor(PORT1, ratio18_1, false);
-motor LeftDrive = motor(PORT10, ratio18_1, false);
-motor RightDrive = motor(PORT11, ratio18_1, false);
-motor FrontDrive = motor(PORT20, ratio18_1, false);
-motor TopLift = motor(PORT18, ratio36_1, true);
-motor BottomLift = motor(PORT19, ratio36_1, true);
+motor BackDrive = motor(PORT11, ratio18_1, false);
+motor LeftDrive = motor(PORT1, ratio18_1, false);
+motor RightDrive = motor(PORT20, ratio18_1, false);
+motor FrontDrive = motor(PORT10, ratio18_1, false);
+motor TopLift = motor(PORT2, ratio36_1, true);
+motor BottomLift = motor(PORT9, ratio36_1, true);
 motor ClawMotor = motor(PORT6, ratio18_1, true);
 
 // VEXcode generated functions
@@ -22,7 +22,7 @@ motor ClawMotor = motor(PORT6, ratio18_1, true);
 bool RemoteControlCodeEnabled = true;
 
 /**
- * Used to initialize code/tasks/devices added using tools in VEXcode Text.
+ * Used to initialize code/tasks/devices added using tools in VEXcode Pro.
  * 
  * This should be called at the start of your int main function.
  */

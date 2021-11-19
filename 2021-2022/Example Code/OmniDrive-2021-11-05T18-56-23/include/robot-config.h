@@ -8,6 +8,9 @@ extern motor FrontDrive;
 extern motor RightDrive;
 extern motor BackDrive;
 extern motor LeftDrive;
+extern motor TopLift;
+extern motor BottomLift;
+extern motor FlipMotor;
 
 /**
  * Used to initialize code/tasks/devices added using tools in VEXcode Pro.
